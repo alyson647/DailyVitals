@@ -33,9 +33,6 @@ replay_pid*
 # files for the dex VM
 *.dex
 
-# java class files
-*.class
-
 # generated files
 bin/
 gen/
@@ -65,7 +62,6 @@ captures/
 # Xcode
 
 ## Build generated
-build/
 DerivedData/
 
 ## Various settings
