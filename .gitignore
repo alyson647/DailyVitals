@@ -25,3 +25,75 @@ replay_pid*
 
 # Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
 .kotlin/
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# python
+*.pyc
+
+local.properties
+
+.settings
+.DS_Store
+
+# android studio new ignores
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle/
+*~
+*.swp
+out/
+build/
+captures/
+.safedk
+
+
+# Xcode
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+
+## Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+.build/
+
+# SwiftUI
+
+# Add this line if you want to avoid checking in generated files from SwiftUI previews.
+*.xcodeproj/xcuserdata/<username>.xcuserdatad/xcschemes/SwiftUI\ Preview.xcscheme
+
+**/.DS_Store
+
