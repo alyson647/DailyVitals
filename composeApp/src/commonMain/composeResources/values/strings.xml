@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+    <!-- onboarding -->
+    <string name="onboarding_heading_one">Health Tracking</string>
+    <string name="onboarding_description_one">Easily track your glucose, sleep, and exercise — every single day.</string>
+    <string name="onboarding_heading_two">Meaningful Insights</string>
+    <string name="onboarding_description_two">Understand patterns. Build consistency. Feel the difference.</string>
+    <string name="onboarding_heading_three">Daily Reminders</string>
+    <string name="onboarding_description_three">Set daily reminders and never miss a log.</string>
+
+    <!-- sign up -->
+    <string name="daily_vitals">Daily Vitals</string>
+    <string name="app_description">Your daily companion for tracking glucose, sleep, and movement — all in one simple place.</string>
+    <string name="google_sign_up">Sign up with Google</string>
+
+    <!-- heading -->
+    <string name="good_morning">Good Morning</string>
+
+    <!-- summary  -->
+    <string name="today_summary">Today’s Summary</string>
+    <string name="excellent_reading">Excellent Reading</string>
+
+    <!-- fasting  -->
+    <string name="fasting">Fasting</string>
+    <string name="no_fasting_data">No Fasting data</string>
+    <string name="borderline_fasting">️Borderline Fasting</string>
+    <string name="fasting_ok">Fasting OK</string>
+    <string name="mg_dl">mg/dl</string>
+
+    <!-- post meal  -->
+    <string name="post_meal">Post Meal</string>
+    <string name="no_post_meal_data">No Post-Meal data</string>
+    <string name="borderline_post_meal">️Borderline Post-Meal</string>
+    <string name="post_meal_ok">Post-Meal OK</string>
+
+    <!-- other health data  -->
+    <string name="other_health_data">Other Health Data</string>
+
+    <!-- sleep  -->
+    <string name="sleep">Sleep</string>
+    <string name="did_you_sleep_well">Did you sleep well?</string>
+    <string name="poor_sleep">Poor Sleep!</string>
+    <string name="moderate_sleep">Moderate Sleep!</string>
+    <string name="sound_sleep">Sound Sleep!</string>
+    <string name="less_six_hours">&lt; 6 hours</string>
+    <string name="six_seven_hours">6-7 hours</string>
+    <string name="greater_seven_hours">&gt; 7 hours</string>
+
+    <!-- exercise  -->
+    <string name="exercise">Exercise</string>
+    <string name="go_for_a_run">Go for a run!</string>
+    <string name="nice_job">Nice Job!</string>
+
+    <!-- weight  -->
+    <string name="weight">Weight</string>
+    <string name="add_weight">Add Weight!</string>
+    <string name="steady_weight">Steady Weight!</string>
+    <string name="kg">kg</string>
+    <string name="na">N/A</string>
+
+    <!-- history  -->
+    <string name="last_five_days">Last 5 days</string>
+    <string name="mg_dl_format">%d mg/dl</string>
+
+</resources>
