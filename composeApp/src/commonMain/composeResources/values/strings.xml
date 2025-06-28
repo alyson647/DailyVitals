@@ -8,6 +8,7 @@
     <string name="onboarding_description_two">Understand patterns. Build consistency. Feel the difference.</string>
     <string name="onboarding_heading_three">Daily Reminders</string>
     <string name="onboarding_description_three">Set daily reminders and never miss a log.</string>
+    <string name="skip">SKIP</string>
 
     <!-- sign up -->
     <string name="daily_vitals">Daily Vitals</string>
