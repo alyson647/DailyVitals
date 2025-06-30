@@ -45,12 +45,6 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-//            // Import the BoM for the Firebase platform
-//            implementation(platform("com.google.firebase:firebase-bom:33.16.0"))
-//
-//            // Add the dependency for the Realtime Database library
-//            // When using the BoM, you don't specify versions in Firebase library dependencies
-//            implementation("com.google.firebase:firebase-database")
             implementation("io.github.mirzemehdi:kmpauth-google:2.4.0-alpha02")      // Google One Tap Sign-In
             implementation("io.github.mirzemehdi:kmpauth-firebase:2.4.0-alpha02")    // Firebase integration
             implementation("io.github.mirzemehdi:kmpauth-uihelper:2.4.0-alpha02")    // UI helper buttons
