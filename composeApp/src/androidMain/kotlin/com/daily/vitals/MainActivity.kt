@@ -13,7 +13,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-//        GoogleAuthProvider.create(credentials = GoogleAuthCredentials(serverId = WebClientId))
         GoogleAuthProvider.create(credentials = GoogleAuthCredentials(serverId = "1057388909480-8p4lrogr189j8cbruirophktregd05ch.apps.googleusercontent.com"))
 
         setContent {
