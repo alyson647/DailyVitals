@@ -1,6 +1,7 @@
 package com.daily.vitals.ui.home
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,16 +12,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.daily.vitals.ui.component.CustomSwitch
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.did_you_sleep_well
 import dailyvitals.composeapp.generated.resources.exercise
@@ -29,8 +35,10 @@ import dailyvitals.composeapp.generated.resources.last_five_days
 import dailyvitals.composeapp.generated.resources.less_six_hours
 import dailyvitals.composeapp.generated.resources.no_fasting_data
 import dailyvitals.composeapp.generated.resources.other_health_data
+import dailyvitals.composeapp.generated.resources.selected_icon
 import dailyvitals.composeapp.generated.resources.six_seven_hours
 import dailyvitals.composeapp.generated.resources.sleep
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -122,6 +130,9 @@ private fun Sleep() {
 
 @Composable
 private fun ExerciseWeight() {
+    val checked = remember { mutableStateOf(true) }
+    val enabled = remember { mutableStateOf(true) }
+
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
@@ -135,6 +146,23 @@ private fun ExerciseWeight() {
                 text = stringResource(Res.string.exercise),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.titleSmall,
+            )
+            CustomSwitch(
+                enabled = enabled.value,
+                checked = checked.value,
+                onCheckedChange = {
+                    checked.value = !checked.value
+                },
+                thumbContent = {
+                    if (checked.value && enabled.value) {
+                        Image(
+                            modifier = Modifier.size(16.dp),
+                            painter = painterResource(Res.drawable.selected_icon),
+                            contentDescription = null,
+                            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.tertiary)
+                        )
+                    }
+                }
             )
         }
         Column {
