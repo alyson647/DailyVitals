@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1057388909480",
+    "firebase_url": "https://daily-vitals-67af0-default-rtdb.firebaseio.com",
+    "project_id": "daily-vitals-67af0",
+    "storage_bucket": "daily-vitals-67af0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057388909480:android:a46cbd09fccb116d6cc39d",
+        "android_client_info": {
+          "package_name": "com.daily.vitals"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057388909480-j9eetl9bgjd5h91m5u9983b7t202ce45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daily.vitals",
+            "certificate_hash": "a7f1075b0102f77238748be42006582cdf7edc99"
+          }
+        },
+        {
+          "client_id": "1057388909480-8p4lrogr189j8cbruirophktregd05ch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmcMTsdyriHnCH__fLG5zHHXzOslnWdlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057388909480-8p4lrogr189j8cbruirophktregd05ch.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1057388909480-d0ld0c3mo3ufpm3ki7f5l3t2hscuicql.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.daily.vitals.DailyVitals"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
