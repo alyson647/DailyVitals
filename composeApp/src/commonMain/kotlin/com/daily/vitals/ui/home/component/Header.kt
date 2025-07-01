@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home
+package com.daily.vitals.ui.home.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +12,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.good_morning
-import dailyvitals.composeapp.generated.resources.other_health_data
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

@@ -238,7 +238,7 @@ private fun ExerciseWeight() {
                         .height(30.dp), // Optional: control height too
                     value = text,
                     onValueChange = { text = it },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     singleLine = true
                 )
                 Text(

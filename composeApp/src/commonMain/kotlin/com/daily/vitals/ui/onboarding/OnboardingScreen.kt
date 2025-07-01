@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
+import com.daily.vitals.ui.onboarding.component.OnboardingComponent
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.skip
 import org.jetbrains.compose.resources.DrawableResource
