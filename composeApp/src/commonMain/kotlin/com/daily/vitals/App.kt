@@ -14,23 +14,9 @@ import kotlinx.coroutines.launch
 @Preview
 fun App() {
     DailyVitalsTheme {
-        val scope = rememberCoroutineScope()
-        Button(
-            onClick = {
-                scope.launch {
-                    writeTest()
-                }
-            },
-            content = {
-                Text("click here")
-            }
-        )
-        GoogleSignIn()
+        TestDatabaseCall()
+//        GoogleSignIn()
 
     }
 }
 
-suspend fun writeTest() {
-    val db = Firebase.database
-    db.reference().child("test-android").setValue("Hello, world!")
-}
