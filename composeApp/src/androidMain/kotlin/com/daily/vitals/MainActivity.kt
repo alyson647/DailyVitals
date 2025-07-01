@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.daily.vitals.AppInitializer.onApplicationStart
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import com.mmk.kmpauth.google.GoogleAuthCredentials
@@ -15,7 +16,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        GoogleAuthProvider.create(credentials = GoogleAuthCredentials(serverId = "1057388909480-8p4lrogr189j8cbruirophktregd05ch.apps.googleusercontent.com"))
+        onApplicationStart()
         // THIS initializes the native FirebaseApp
         com.google.firebase.FirebaseApp.initializeApp(this)
         setContent {
