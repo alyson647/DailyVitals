@@ -2,6 +2,8 @@ import SwiftUI
 import ComposeApp
 import GoogleSignIn
 import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     
@@ -36,7 +38,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+
    var body: some Scene {
       WindowGroup {
             ContentView().onOpenURL(perform: { url in

@@ -14,7 +14,7 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
     
@@ -35,6 +35,9 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation("com.google.firebase:firebase-config:22.1.1")
+            implementation("com.google.firebase:firebase-database")
+            implementation("com.google.firebase:firebase-database-ktx:20.3.0")
+            implementation("dev.gitlive:firebase-common:1.8.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -48,6 +51,9 @@ kotlin {
             implementation("io.github.mirzemehdi:kmpauth-google:2.4.0-alpha02")      // Google One Tap Sign-In
             implementation("io.github.mirzemehdi:kmpauth-firebase:2.4.0-alpha02")    // Firebase integration
             implementation("io.github.mirzemehdi:kmpauth-uihelper:2.4.0-alpha02")    // UI helper buttons
+            implementation("dev.gitlive:firebase-database:2.1.0") // or latest
+            implementation("dev.gitlive:firebase-common:1.8.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // required if not already
 
         }
         commonTest.dependencies {
@@ -78,8 +84,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
