@@ -11,13 +11,16 @@ import dailyvitals.composeapp.generated.resources.onboarding_one
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun FirstOnboardingScreen() {
+fun FirstOnboardingScreen(
+    onSkipClick: () -> Unit,
+) {
     OnboardingScreen(
         modifier = Modifier.statusBarsPadding(),
         heading = stringResource(Res.string.onboarding_heading_one),
         description = stringResource(Res.string.onboarding_description_one),
         image = Res.drawable.onboarding_one,
         buttonImage = Res.drawable.arrow_right,
-        progressFraction = (1f / 3f)
+        progressFraction = (1f / 3f),
+        onSkipClick = onSkipClick,
     )
 }

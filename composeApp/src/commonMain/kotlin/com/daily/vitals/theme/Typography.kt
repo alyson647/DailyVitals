@@ -53,7 +53,7 @@ val Typography: Typography @Composable get() = Typography(
     labelLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 57.sp,
-        lineHeight = 64.sp
+        fontSize = 14.sp,
+        lineHeight = 20.sp
     ),
 )
