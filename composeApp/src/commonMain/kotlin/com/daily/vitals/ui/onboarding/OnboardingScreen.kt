@@ -31,9 +31,11 @@ fun OnboardingScreen(
     heading: String,
     description: String,
     image: DrawableResource,
-    buttonImage: DrawableResource,
+    forwardButtonImage: DrawableResource,
+    backwardButtonImage: DrawableResource,
     onSkipClick: () -> Unit = {},
-    onButtonClick: () -> Unit = onSkipClick, // Default to onSkipClick
+    onForwardClick: () -> Unit = onSkipClick,
+    onBackClick: (() -> Unit)? = null,
     progressFraction: Float,
     imageSizeDp: Dp = 16.dp
 ) {
@@ -42,9 +44,11 @@ fun OnboardingScreen(
         heading = heading,
         description = description,
         image = image,
-        buttonImage = buttonImage,
+        forwardButtonImage = forwardButtonImage,
+        backwardButtonImage = backwardButtonImage,
         onSkipClick = onSkipClick,
-        onButtonClick = onButtonClick,
+        onForwardClick = onForwardClick,
+        onBackClick = onBackClick,
         progressFraction = progressFraction,
         imageSizeDp = imageSizeDp
     )
@@ -56,9 +60,11 @@ private fun OnboardingScreenImpl(
     heading: String,
     description: String,
     image: DrawableResource,
-    buttonImage: DrawableResource,
+    forwardButtonImage: DrawableResource,
+    backwardButtonImage: DrawableResource,
     onSkipClick: () -> Unit,
-    onButtonClick: () -> Unit,
+    onForwardClick: () -> Unit,
+    onBackClick: (() -> Unit)? = null,
     progressFraction: Float,
     imageSizeDp: Dp
 ) {
@@ -67,7 +73,7 @@ private fun OnboardingScreenImpl(
             .fillMaxSize()
             .padding(start = 24.dp, end = 24.dp, bottom = 28.dp)
     ) {
-        // Skip Button
+        // Top skip button section
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -84,7 +90,7 @@ private fun OnboardingScreenImpl(
             )
         }
 
-        // Centered Content
+        // Center content section including image, heading, and description
         Column(
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -97,18 +103,29 @@ private fun OnboardingScreenImpl(
             )
         }
 
-        // Bottom Button
+        // Bottom navigation of forward and backward
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomEnd),
-            horizontalArrangement = Arrangement.End,
+                .align(Alignment.BottomCenter),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BottomButton(
-                buttonImage = buttonImage,
-                onButtonClick = onButtonClick,
+            if (onBackClick != null) {
+                ArcButton(
+                    buttonImage = backwardButtonImage,
+                    progressFraction = (progressFraction - (1f / 3f)).coerceAtLeast(0f),
+                    onClick = onBackClick,
+                    imageSizeDp = 16.dp
+                )
+            } else {
+                Spacer(modifier = Modifier.width(70.dp))
+            }
+
+            ArcButton(
+                buttonImage = forwardButtonImage,
                 progressFraction = progressFraction,
+                onClick = onForwardClick,
                 imageSizeDp = imageSizeDp
             )
         }
@@ -116,19 +133,19 @@ private fun OnboardingScreenImpl(
 }
 
 @Composable
-private fun BottomButton(
+private fun ArcButton(
     buttonImage: DrawableResource,
     progressFraction: Float,
-    onButtonClick: () -> Unit,
+    onClick: () -> Unit,
     imageSizeDp: Dp = 16.dp
 ) {
     val progressColor = MaterialTheme.colorScheme.primary
 
     Box(
-        modifier = Modifier.clickable { onButtonClick() },
+        modifier = Modifier.clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
-        // Circular outline
+        // Circular outer border
         Box(
             modifier = Modifier
                 .size(70.dp)
@@ -138,6 +155,8 @@ private fun BottomButton(
                     shape = CircleShape
                 )
         )
+
+        // Arc progress ring around the button
         androidx.compose.foundation.Canvas(modifier = Modifier.size(70.dp)) {
             val strokeWidth = 3.dp.toPx()
             val diameter = size.minDimension
@@ -152,6 +171,8 @@ private fun BottomButton(
                 topLeft = Offset.Zero
             )
         }
+
+        // Inner circular button with image icon
         Box(
             modifier = Modifier
                 .size(50.dp)
@@ -160,9 +181,9 @@ private fun BottomButton(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                modifier = Modifier.size(imageSizeDp), // ✅ Use param size
+                modifier = Modifier.size(imageSizeDp),
                 painter = painterResource(buttonImage),
-                contentDescription = null,
+                contentDescription = null
             )
         }
     }
