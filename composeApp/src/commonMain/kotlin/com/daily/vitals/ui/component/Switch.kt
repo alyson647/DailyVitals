@@ -128,6 +128,4 @@ internal open class SwitchStyle() {
     open val disabledUncheckedIconColor: Color
         @Composable
         get() = MaterialTheme.colorScheme.outlineVariant
-
-
 }
