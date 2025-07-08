@@ -31,15 +31,24 @@ fun App() {
         Box(modifier = Modifier.fillMaxSize()) {
             when (currentScreen) {
                 Screen.FirstOnboarding -> FirstOnboardingScreen(
-                    onSkipClick = { currentScreen = Screen.SecondOnboarding }
+                    onSkipClick = { currentScreen = Screen.Home },
+                    onForwardClick = { currentScreen = Screen.SecondOnboarding }
                 )
+
                 Screen.SecondOnboarding -> SecondOnboardingScreen(
-                    onSkipClick = { currentScreen = Screen.ThirdOnboarding }
+                    onSkipClick = { currentScreen = Screen.Home },
+                    onForwardClick = { currentScreen = Screen.ThirdOnboarding },
+                    onBackClick = { currentScreen = Screen.FirstOnboarding }
                 )
+
                 Screen.ThirdOnboarding -> ThirdOnboardingScreen(
-                    onSkipClick = { showSignInDialog = true }
+                    onSkipClick = { showSignInDialog = true },
+                    onForwardClick = { showSignInDialog = true },
+                    onBackClick = { currentScreen = Screen.SecondOnboarding }
                 )
+
                 Screen.Home -> Home()
+
                 else -> {}
             }
 
