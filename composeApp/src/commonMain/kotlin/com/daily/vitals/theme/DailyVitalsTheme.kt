@@ -14,6 +14,7 @@ val Color = lightColorScheme(
     secondaryContainer = SecondaryContainer,
     onSecondaryContainer = OnSecondaryContainer,
     tertiary = Tertiary,
+    tertiaryContainer = TertiaryContainer,
     onTertiaryContainer = OnTertiaryContainer,
     surface = Surface,
     onSurface = OnSurface,

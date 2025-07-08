@@ -16,7 +16,7 @@ val Typography: Typography @Composable get() = Typography(
     ),
     titleMedium = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = 24.sp
     ),
@@ -52,8 +52,27 @@ val Typography: Typography @Composable get() = Typography(
     ),
     labelLarge = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp
     ),
 )
+
+val Typography.titleMediumBold: TextStyle
+    @Composable
+    get() = titleMedium.copy(fontWeight = FontWeight.Bold)
+
+val Typography.labelLargeSemiBold: TextStyle
+    @Composable
+    get() = labelLarge.copy(fontWeight = FontWeight.SemiBold)
+
+val Typography.titleLargeBold: TextStyle
+    @Composable
+    get() = titleLarge.copy(fontWeight = FontWeight.Bold)
+
+val Typography.labelMediumSemiBold: TextStyle
+    @Composable
+    get() = labelMedium.copy(fontWeight = FontWeight.Bold)
+
+
+
