@@ -27,6 +27,8 @@
     <string name="no_fasting_data">No Fasting data</string>
     <string name="borderline_fasting">️Borderline Fasting</string>
     <string name="fasting_ok">Fasting OK</string>
+    <string name="low_fasting">Low Fasting</string>
+    <string name="high_fasting">High Fasting</string>
     <string name="mg_dl">mg/dl</string>
 
     <!-- post meal  -->
@@ -34,6 +36,8 @@
     <string name="no_post_meal_data">No Post-Meal data</string>
     <string name="borderline_post_meal">️Borderline Post-Meal</string>
     <string name="post_meal_ok">Post-Meal OK</string>
+    <string name="low_post_meal">Low Post-meal</string>
+    <string name="high_post_meal">High Post-meal</string>
 
     <!-- other health data  -->
     <string name="other_health_data">Other Health Data</string>
@@ -62,6 +66,5 @@
 
     <!-- history  -->
     <string name="last_five_days">Last 5 days</string>
-    <string name="mg_dl_format">%d mg/dl</string>
 
 </resources>
