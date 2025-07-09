@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.MaterialTheme
 import com.daily.vitals.ui.home.component.HomeHeader
+import com.daily.vitals.ui.home.component.OtherHealthData
+import com.daily.vitals.ui.home.component.Summary
 
 
 @Composable
