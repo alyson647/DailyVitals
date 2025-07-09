@@ -1,5 +1,6 @@
 package com.daily.vitals.ui.home.component
 
+import History
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

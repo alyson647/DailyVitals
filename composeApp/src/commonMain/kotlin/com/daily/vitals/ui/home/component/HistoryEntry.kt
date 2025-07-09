@@ -36,9 +36,9 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HistoryEntry(
-    date: String = "Apr 24, 2025",
-    fasting: Int? = 102,
-    postMeal: Int? = 110
+    date: String?,
+    fasting: Int?,
+    postMeal: Int?
 ) {
     Column(
         modifier = Modifier
@@ -48,12 +48,14 @@ fun HistoryEntry(
         // individual history row
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = date,
-            color = MaterialTheme.colorScheme.onSurface,
-            style = MaterialTheme.typography.labelLargeSemiBold,
-            fontStyle = FontStyle.Italic
-        )
+        if (date != null) {
+            Text(
+                text = date,
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.labelLargeSemiBold,
+                fontStyle = FontStyle.Italic
+            )
+        }
         Spacer(modifier = Modifier.height(8.dp))
 
         Row(

@@ -1,27 +1,30 @@
-package com.daily.vitals.ui.home.component
-
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.daily.vitals.ui.home.component.HistoryEntry
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.last_five_days
 import org.jetbrains.compose.resources.stringResource
+import kotlin.random.Random
 
 @Composable
 fun History() {
+    val random = Random.Default
+    val dateLabels = listOf(
+        "July 6, 2025",
+        "July 7, 2025",
+        "July 8, 2025",
+        "July 9, 2025",
+        "July 10, 2025"
+    )
+
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
@@ -40,10 +43,11 @@ fun History() {
             thickness = 1.dp,
             color = MaterialTheme.colorScheme.outline
         )
-        HistoryEntry()
-        HistoryEntry()
-        HistoryEntry()
-        HistoryEntry()
-        HistoryEntry()
+
+        for (date in dateLabels) {
+            val value1 = random.nextInt(80, 201)
+            val value2 = random.nextInt(80, 201)
+            HistoryEntry(date, value1, value2)
+        }
     }
 }
