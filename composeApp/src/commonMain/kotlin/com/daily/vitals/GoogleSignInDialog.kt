@@ -39,9 +39,11 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GoogleSignInDialog(
-    onSkipClick: (() -> Unit)?,
-    onButtonClick: () -> Unit = onSkipClick ?: {}
+    onSkipClick: ((String, String) -> Unit)?,
+    onButtonClick: ((String, String) -> Unit)?
 ) {
+    var signedInUserName by remember { mutableStateOf("") }
+    var profileUrl by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -80,7 +82,7 @@ fun GoogleSignInDialog(
                             .size(30.dp)
                             .align(Alignment.CenterEnd)
                             .padding(end = 10.dp)
-                            .clickable { onSkipClick?.invoke() }
+                            .clickable { onSkipClick?.invoke(signedInUserName, profileUrl) }
                     )
                 }
 
@@ -101,14 +103,14 @@ fun GoogleSignInDialog(
                 )
 
                 // Firebase Sign-In
-                var signedInUserName by remember { mutableStateOf("") }
                 AuthUiHelperButtonsAndFirebaseAuth(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
                     onFirebaseResult = { result ->
                         signedInUserName = result.getOrNull()?.displayName ?: "Signed In"
-                        onButtonClick.invoke()
+                        profileUrl = result.getOrNull()?.photoURL ?: ""
+                        onButtonClick?.invoke(signedInUserName, profileUrl)
                     }
                 )
             }
