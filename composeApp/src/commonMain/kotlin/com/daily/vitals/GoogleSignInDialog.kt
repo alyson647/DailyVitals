@@ -108,6 +108,7 @@ fun GoogleSignInDialog(
                         .height(48.dp),
                     onFirebaseResult = { result ->
                         signedInUserName = result.getOrNull()?.displayName ?: "Signed In"
+                        onButtonClick.invoke()
                     }
                 )
             }
