@@ -28,6 +28,9 @@ fun App() {
         var currentScreen by remember { mutableStateOf(Screen.FirstOnboarding) }
         var showSignInDialog by remember { mutableStateOf(false) }
 
+        var signedInName by remember { mutableStateOf("") }
+        var profileImage by remember { mutableStateOf("") }
+
         Box(modifier = Modifier.fillMaxSize()) {
             when (currentScreen) {
                 Screen.FirstOnboarding -> FirstOnboardingScreen(
@@ -47,7 +50,7 @@ fun App() {
                     onBackClick = { currentScreen = Screen.SecondOnboarding }
                 )
 
-                Screen.Home -> Home()
+                Screen.Home -> Home(signedInName, profileImage)
 
                 else -> {}
             }
@@ -60,11 +63,13 @@ fun App() {
                 )
 
                 GoogleSignInDialog(
-                    onSkipClick = {
+                    onSkipClick = { _, _ ->
                         showSignInDialog = false
                         currentScreen = Screen.Home
                     },
-                    onButtonClick = {
+                    onButtonClick = { displayName, profileUrl ->
+                        signedInName = displayName
+                        profileImage = profileUrl
                         showSignInDialog = false
                         currentScreen = Screen.Home
                     }

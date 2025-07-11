@@ -18,7 +18,10 @@ import com.daily.vitals.ui.home.component.Summary
 
 
 @Composable
-fun Home() {
+fun Home(
+    signedInName: String,
+    profileUrl: String
+) {
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surfaceContainerLow)
@@ -26,7 +29,10 @@ fun Home() {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HomeHeader(name = "Buddy")
+        HomeHeader(
+            name = signedInName,
+            profileUrl = profileUrl
+        )
         Summary(modifier = Modifier.padding(horizontal = 16.dp))
         Spacer(modifier = Modifier.height(16.dp))
         OtherHealthData()

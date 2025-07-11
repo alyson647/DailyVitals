@@ -20,21 +20,26 @@ import com.daily.vitals.theme.titleMediumBold
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.generic_avatar
 import dailyvitals.composeapp.generated.resources.good_morning
+import io.kamel.image.KamelImage
+import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun HomeHeader(
     name: String,
+    profileUrl: String
 ) {
     HomeHeaderImpl(
-        name = name
+        name = name,
+        profileUrl = profileUrl
     )
 }
 
 @Composable
 private fun HomeHeaderImpl(
     name: String,
+    profileUrl: String
 ) {
     Row(
         modifier = Modifier.padding(16.dp)
@@ -55,17 +60,32 @@ private fun HomeHeaderImpl(
             )
         }
         Spacer(modifier = Modifier.weight(1f))
-        Image(
-            painter = painterResource(Res.drawable.generic_avatar),
-            contentDescription = "Profile picture",
-            modifier = Modifier
-                .size(44.dp)
-                .clip(CircleShape)
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    shape = CircleShape
-                )
-        )
+        if (profileUrl != "") {
+            KamelImage(
+                modifier =  Modifier
+                    .size(44.dp)
+                    .clip(CircleShape)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        shape = CircleShape
+                    ),
+                resource = asyncPainterResource(data = profileUrl),
+                contentDescription = "profile image"
+            )
+        } else {
+            Image(
+                painter = painterResource(Res.drawable.generic_avatar),
+                contentDescription = "Profile picture",
+                modifier = Modifier
+                    .size(44.dp)
+                    .clip(CircleShape)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        shape = CircleShape
+                    )
+            )
+        }
     }
 }
