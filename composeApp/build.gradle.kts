@@ -54,6 +54,7 @@ kotlin {
             implementation("dev.gitlive:firebase-database:2.1.0") // or latest
             implementation("dev.gitlive:firebase-common:1.8.0")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // required if not already
+            implementation("media.kamel:kamel-image-default:1.0.7")
 
         }
         commonTest.dependencies {
