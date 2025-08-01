@@ -20,7 +20,9 @@ import com.daily.vitals.ui.home.component.Summary
 @Composable
 fun Home(
     signedInName: String,
-    profileUrl: String
+    profileUrl: String,
+    email: String,
+    userId: String
 ) {
     Column(
         modifier = Modifier

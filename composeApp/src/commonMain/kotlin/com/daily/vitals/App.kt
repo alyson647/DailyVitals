@@ -30,6 +30,8 @@ fun App() {
 
         var signedInName by remember { mutableStateOf("") }
         var profileImage by remember { mutableStateOf("") }
+        var email by remember { mutableStateOf("") }
+        var userId by remember { mutableStateOf("") }
 
         Box(modifier = Modifier.fillMaxSize()) {
             when (currentScreen) {
@@ -50,7 +52,7 @@ fun App() {
                     onBackClick = { currentScreen = Screen.SecondOnboarding }
                 )
 
-                Screen.Home -> Home(signedInName, profileImage)
+                Screen.Home -> Home(signedInName, profileImage, email, userId)
 
                 else -> {}
             }
@@ -67,9 +69,11 @@ fun App() {
                         showSignInDialog = false
                         currentScreen = Screen.Home
                     },
-                    onButtonClick = { displayName, profileUrl ->
+                    onButtonClick = { displayName, profileUrl, emailString, userIdString ->
                         signedInName = displayName
                         profileImage = profileUrl
+                        email = emailString
+                        userId = userIdString
                         showSignInDialog = false
                         currentScreen = Screen.Home
                     }
