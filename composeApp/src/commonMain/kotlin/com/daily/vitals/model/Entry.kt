@@ -4,9 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Entry(
-    val exercise: Boolean? = null,
-    val fasting: Int? = null,
-    val postMeal: Int? = null,
-    val sleep: Int? = null,
-    val weight: Double? = null
+    val id: String = "",
+    val exercise: Boolean = false,
+    val fasting: Int = 0,
+    val postMeal: Int = 0,
+    val sleep: Int = 0,
+    val weight: Double = 0.0
 )
