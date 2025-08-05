@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,19 +72,28 @@ private fun OnboardingScreenImpl(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(start = 24.dp, end = 24.dp, bottom = 28.dp)
+            .padding(start = 32.dp, end = 32.dp, bottom = 28.dp)
     ) {
-        // Top skip button section
+        // Top left backward button and top right skip button
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 18.dp)
-                .align(Alignment.TopEnd),
-            horizontalArrangement = Arrangement.End,
+                .padding(top = 22.dp)
+                .align(Alignment.TopCenter),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Icon(
+                modifier = Modifier
+                    .clickable { onBackClick?.invoke() },
+                painter = painterResource(backwardButtonImage),
+                contentDescription = "Back",
+                tint = MaterialTheme.colorScheme.onSecondaryContainer
+            )
+
             Text(
-                modifier = Modifier.clickable { onSkipClick() },
+                modifier = Modifier
+                    .clickable { onSkipClick() },
                 text = stringResource(Res.string.skip),
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 style = MaterialTheme.typography.titleSmall
@@ -103,25 +113,11 @@ private fun OnboardingScreenImpl(
             )
         }
 
-        // Bottom navigation of forward and backward
-        Row(
+        // forward button at the bottom
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .align(Alignment.BottomEnd)
         ) {
-            if (onBackClick != null) {
-                ArcButton(
-                    buttonImage = backwardButtonImage,
-                    progressFraction = (progressFraction - (1f / 3f)).coerceAtLeast(0f),
-                    onClick = onBackClick,
-                    imageSizeDp = 16.dp
-                )
-            } else {
-                Spacer(modifier = Modifier.width(70.dp))
-            }
-
             ArcButton(
                 buttonImage = forwardButtonImage,
                 progressFraction = progressFraction,
