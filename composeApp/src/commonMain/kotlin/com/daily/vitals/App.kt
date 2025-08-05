@@ -52,7 +52,7 @@ fun App() {
                     onBackClick = { currentScreen = Screen.SecondOnboarding }
                 )
 
-                Screen.Home -> Home(signedInName, profileImage, email, userId)
+                Screen.Home -> Home(signedInName, profileImage)
 
                 else -> {}
             }
@@ -69,11 +69,9 @@ fun App() {
                         showSignInDialog = false
                         currentScreen = Screen.Home
                     },
-                    onButtonClick = { displayName, profileUrl, emailString, userIdString ->
+                    onButtonClick = { displayName, profileUrl ->
                         signedInName = displayName
                         profileImage = profileUrl
-                        email = emailString
-                        userId = userIdString
                         showSignInDialog = false
                         currentScreen = Screen.Home
                     }
