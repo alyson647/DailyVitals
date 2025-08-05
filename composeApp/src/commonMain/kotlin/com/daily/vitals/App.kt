@@ -30,8 +30,6 @@ fun App() {
 
         var signedInName by remember { mutableStateOf("") }
         var profileImage by remember { mutableStateOf("") }
-        var email by remember { mutableStateOf("") }
-        var userId by remember { mutableStateOf("") }
 
         Box(modifier = Modifier.fillMaxSize()) {
             when (currentScreen) {
