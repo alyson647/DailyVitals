@@ -72,33 +72,27 @@ private fun OnboardingScreenImpl(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(start = 24.dp, end = 24.dp, bottom = 28.dp)
+            .padding(start = 32.dp, end = 32.dp, bottom = 28.dp)
     ) {
         // Top left backward button and top right skip button
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 18.dp)
+                .padding(top = 22.dp)
                 .align(Alignment.TopCenter),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (onBackClick != null) {
-                Icon(
-                    modifier = Modifier
-                        .padding(start = 32.dp)
-                        .clickable { onBackClick() },
-                    painter = painterResource(backwardButtonImage),
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-            } else {
-                Spacer(modifier = Modifier.width(32.dp))
-            }
+            Icon(
+                modifier = Modifier
+                    .clickable { onBackClick?.invoke() },
+                painter = painterResource(backwardButtonImage),
+                contentDescription = "Back",
+                tint = MaterialTheme.colorScheme.onSecondaryContainer
+            )
 
             Text(
                 modifier = Modifier
-                    .padding(end = 32.dp)
                     .clickable { onSkipClick() },
                 text = stringResource(Res.string.skip),
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
