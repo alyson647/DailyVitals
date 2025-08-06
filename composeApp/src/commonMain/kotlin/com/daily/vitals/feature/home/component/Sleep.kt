@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.daily.vitals.theme.labelLargeSemiBold
-import com.daily.vitals.feature.component.SleepIcon
+import com.daily.vitals.ui.component.SleepIcon
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.did_you_sleep_well
 import dailyvitals.composeapp.generated.resources.greater_seven_hours

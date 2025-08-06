@@ -1,4 +1,4 @@
-package com.daily.vitals.feature.component
+package com.daily.vitals.ui.component
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme

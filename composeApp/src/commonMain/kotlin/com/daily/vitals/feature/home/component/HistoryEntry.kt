@@ -17,9 +17,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.daily.vitals.theme.labelLargeSemiBold
 import com.daily.vitals.theme.labelMediumSemiBold
-import com.daily.vitals.feature.component.GreenCheckIcon
-import com.daily.vitals.feature.component.RedCircleIcon
-import com.daily.vitals.feature.component.WarningIcon
+import com.daily.vitals.ui.component.GreenCheckIcon
+import com.daily.vitals.ui.component.RedCircleIcon
+import com.daily.vitals.ui.component.WarningIcon
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.borderline_fasting
 import dailyvitals.composeapp.generated.resources.borderline_post_meal
