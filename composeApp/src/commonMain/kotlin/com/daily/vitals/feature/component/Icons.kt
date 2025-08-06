@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.component
+package com.daily.vitals.feature.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size

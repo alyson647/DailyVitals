@@ -7,10 +7,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.daily.vitals.theme.DailyVitalsTheme
-import com.daily.vitals.ui.home.Home
-import com.daily.vitals.ui.onboarding.FirstOnboardingScreen
-import com.daily.vitals.ui.onboarding.SecondOnboardingScreen
-import com.daily.vitals.ui.onboarding.ThirdOnboardingScreen
+import com.daily.vitals.feature.home.Home
+import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
+import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
+import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 enum class Screen {

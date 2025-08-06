@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home.component
+package com.daily.vitals.feature.home.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -32,11 +32,11 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import com.daily.vitals.theme.labelLargeSemiBold
 import com.daily.vitals.theme.titleLargeBold
-import com.daily.vitals.ui.component.CustomSwitch
-import com.daily.vitals.ui.component.MuscleIcon
-import com.daily.vitals.ui.component.RunIcon
-import com.daily.vitals.ui.component.SecondaryNumberField
-import com.daily.vitals.ui.component.WarningIcon
+import com.daily.vitals.feature.component.CustomSwitch
+import com.daily.vitals.feature.component.MuscleIcon
+import com.daily.vitals.feature.component.RunIcon
+import com.daily.vitals.feature.component.SecondaryNumberField
+import com.daily.vitals.feature.component.WarningIcon
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.add_weight
 import dailyvitals.composeapp.generated.resources.exercise

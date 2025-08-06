@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home
+package com.daily.vitals.feature.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.daily.vitals.ui.home.component.HomeHeader
-import com.daily.vitals.ui.home.component.OtherHealthData
-import com.daily.vitals.ui.home.component.Summary
+import com.daily.vitals.feature.home.component.HomeHeader
+import com.daily.vitals.feature.home.component.OtherHealthData
+import com.daily.vitals.feature.home.component.Summary
 
 
 @Composable
