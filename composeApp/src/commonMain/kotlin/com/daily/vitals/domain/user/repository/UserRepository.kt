@@ -1,6 +1,6 @@
-package com.daily.vitals.data
+package com.daily.vitals.domain.user.repository
 
-import com.daily.vitals.model.User
+import com.daily.vitals.domain.user.model.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

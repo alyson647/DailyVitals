@@ -1,7 +1,7 @@
-package com.daily.vitals.data
+package com.daily.vitals.domain.user.repository
 
-import com.daily.vitals.model.USERS_COLLECTION
-import com.daily.vitals.model.User
+import com.daily.vitals.domain.USERS_COLLECTION
+import com.daily.vitals.domain.user.model.User
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.firestore
 import kotlinx.coroutines.flow.flow
