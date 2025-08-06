@@ -1,4 +1,4 @@
-package com.daily.vitals.model
+package com.daily.vitals.domain.user.model
 
 import kotlinx.serialization.Serializable
 
