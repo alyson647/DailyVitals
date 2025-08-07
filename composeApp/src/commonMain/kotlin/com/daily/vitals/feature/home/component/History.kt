@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.daily.vitals.ui.home.component.HistoryEntry
+import com.daily.vitals.feature.home.component.HistoryEntry
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.last_five_days
 import org.jetbrains.compose.resources.stringResource
