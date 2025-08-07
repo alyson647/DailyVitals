@@ -9,16 +9,6 @@ class FirestoreUserRepository(
     private val firestore: FirebaseFirestore
 ) : UserRepository {
 
-    override fun getUsers() = flow {
-        firestore.collection(USERS_COLLECTION)
-            .snapshots.collect { querySnapshot ->
-                val users = querySnapshot.documents.map { documentSnapshot ->
-                    documentSnapshot.data<User>()
-                }
-                emit(users)
-            }
-    }
-
     override fun getUserById(id: String) = flow {
         firestore.collection(USERS_COLLECTION)
             .document(id)
@@ -32,17 +22,5 @@ class FirestoreUserRepository(
         firestore.collection(USERS_COLLECTION)
             .document(user.id)
             .set(user)
-    }
-
-    override suspend fun updateUser(user: User) {
-        firestore.collection(USERS_COLLECTION)
-            .document(user.id)
-            .set(user)
-    }
-
-    override suspend fun deleteUser(user: User) {
-        firestore.collection(USERS_COLLECTION)
-            .document(user.id)
-            .delete()
     }
 }
