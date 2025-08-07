@@ -3,13 +3,12 @@ package com.daily.vitals.domain.entry.repository
 import com.daily.vitals.domain.entry.model.Entry
 import com.daily.vitals.domain.ENTRIES_COLLECTION
 import com.daily.vitals.domain.USERS_COLLECTION
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.firestore.firestore
+import dev.gitlive.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.flow
 
-class FirestoreEntryRepository : EntryRepository {
-
-    private val firestore = Firebase.firestore
+class FirestoreEntryRepository(
+    private val firestore: FirebaseFirestore
+) : EntryRepository {
 
     override fun getEntriesByUser(userId: String) = flow {
         firestore.collection(USERS_COLLECTION)

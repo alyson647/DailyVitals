@@ -2,13 +2,12 @@ package com.daily.vitals.domain.user.repository
 
 import com.daily.vitals.domain.USERS_COLLECTION
 import com.daily.vitals.domain.user.model.User
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.firestore.firestore
+import dev.gitlive.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.flow
 
-class FirestoreUserRepository : UserRepository {
-
-    private val firestore = Firebase.firestore
+class FirestoreUserRepository(
+    private val firestore: FirebaseFirestore
+) : UserRepository {
 
     override fun getUsers() = flow {
         firestore.collection(USERS_COLLECTION)
