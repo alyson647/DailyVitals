@@ -10,6 +10,10 @@ class FirestoreUserRepository : UserRepository {
 
     private val firestore = Firebase.firestore
 
+    override fun getString(): String {
+        return "Hello world"
+    }
+
     override fun getUsers() = flow {
         firestore.collection(USERS_COLLECTION)
             .snapshots.collect { querySnapshot ->
