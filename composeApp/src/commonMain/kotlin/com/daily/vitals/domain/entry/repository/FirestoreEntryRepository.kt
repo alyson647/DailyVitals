@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.flow
 
 class FirestoreEntryRepository(
     private val firestore: FirebaseFirestore
-) : EntryRepository {
+) : DailyEntryRepository {
 
-    override fun getEntriesByUser(userId: String) = flow {
+    override fun getDailyEntriesByUser(userId: String) = flow {
         firestore.collection(USERS_COLLECTION)
             .document(userId)
             .collection(ENTRIES_COLLECTION)
@@ -23,7 +23,7 @@ class FirestoreEntryRepository(
             }
     }
 
-    override fun getEntryById(userId: String, entryId: String) = flow {
+    override fun getDailyEntryById(userId: String, entryId: String) = flow {
         firestore.collection(USERS_COLLECTION)
             .document(userId)
             .collection(ENTRIES_COLLECTION)
@@ -34,7 +34,7 @@ class FirestoreEntryRepository(
             }
     }
 
-    override suspend fun addEntry(userId: String, entry: Entry) {
+    override suspend fun addDailyEntry(userId: String, entry: Entry) {
         firestore.collection(USERS_COLLECTION)
             .document(userId)
             .collection(ENTRIES_COLLECTION)
@@ -42,7 +42,7 @@ class FirestoreEntryRepository(
             .set(entry)
     }
 
-    override suspend fun updateEntry(userId: String, entry: Entry) {
+    override suspend fun updateDailyEntry(userId: String, entry: Entry) {
         firestore.collection(USERS_COLLECTION)
             .document(userId)
             .collection(ENTRIES_COLLECTION)
@@ -50,7 +50,7 @@ class FirestoreEntryRepository(
             .set(entry)
     }
 
-    override suspend fun deleteEntry(userId: String, entryId: String) {
+    override suspend fun deleteDailyEntry(userId: String, entryId: String) {
         firestore.collection(USERS_COLLECTION)
             .document(userId)
             .collection(ENTRIES_COLLECTION)
