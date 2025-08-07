@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2A2A4EC2E3AE22A00B6ABD2 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A2A4EB2E3AE22A00B6ABD2 /* FirebaseCore */; };
+		F2A2A4EE2E3AE22A00B6ABD2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F2A2A4ED2E3AE22A00B6ABD2 /* FirebaseFirestore */; };
+		F2A2A4F02E3AE22A00B6ABD2 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F2A2A4EF2E3AE22A00B6ABD2 /* FirebaseFirestoreCombine-Community */; };
+		F2A2A4F22E3AE22A00B6ABD2 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = F2A2A4F12E3AE22A00B6ABD2 /* FirebaseFunctions */; };
+		F2A2A4F42E3AE22A00B6ABD2 /* FirebaseFunctionsCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F2A2A4F32E3AE22A00B6ABD2 /* FirebaseFunctionsCombine-Community */; };
 		F2B37FAD2E10F14F0060C5B2 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = F2B37FAC2E10F14F0060C5B2 /* FirebaseRemoteConfig */; };
 		F2B37FBE2E11EE0F0060C5B2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F2B37FBD2E11EE0F0060C5B2 /* GoogleSignIn */; };
 		F2B37FC02E11EE0F0060C5B2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F2B37FBF2E11EE0F0060C5B2 /* GoogleSignInSwift */; };
@@ -53,8 +58,13 @@
 				F2B37FC42E11EEFB0060C5B2 /* FirebaseDatabase in Frameworks */,
 				F2B37FC02E11EE0F0060C5B2 /* GoogleSignInSwift in Frameworks */,
 				F2B37FAD2E10F14F0060C5B2 /* FirebaseRemoteConfig in Frameworks */,
+				F2A2A4F02E3AE22A00B6ABD2 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				F2B37FBE2E11EE0F0060C5B2 /* GoogleSignIn in Frameworks */,
+				F2A2A4EC2E3AE22A00B6ABD2 /* FirebaseCore in Frameworks */,
+				F2A2A4EE2E3AE22A00B6ABD2 /* FirebaseFirestore in Frameworks */,
+				F2A2A4F22E3AE22A00B6ABD2 /* FirebaseFunctions in Frameworks */,
 				F2B37FC22E11EEFB0060C5B2 /* FirebaseAuth in Frameworks */,
+				F2A2A4F42E3AE22A00B6ABD2 /* FirebaseFunctionsCombine-Community in Frameworks */,
 				F2B37FE22E1345690060C5B2 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,6 +116,11 @@
 				F2B37FC12E11EEFB0060C5B2 /* FirebaseAuth */,
 				F2B37FC32E11EEFB0060C5B2 /* FirebaseDatabase */,
 				F2B37FE12E1345690060C5B2 /* FirebaseFirestore */,
+				F2A2A4EB2E3AE22A00B6ABD2 /* FirebaseCore */,
+				F2A2A4ED2E3AE22A00B6ABD2 /* FirebaseFirestore */,
+				F2A2A4EF2E3AE22A00B6ABD2 /* FirebaseFirestoreCombine-Community */,
+				F2A2A4F12E3AE22A00B6ABD2 /* FirebaseFunctions */,
+				F2A2A4F32E3AE22A00B6ABD2 /* FirebaseFunctionsCombine-Community */,
 			);
 			productName = iosApp;
 			productReference = B9DA97B12DC1472C00A4DA20 /* DailyVitals.app */;
@@ -420,6 +435,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F2A2A4EB2E3AE22A00B6ABD2 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseCore;
+		};
+		F2A2A4ED2E3AE22A00B6ABD2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseFirestore;
+		};
+		F2A2A4EF2E3AE22A00B6ABD2 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "FirebaseFirestoreCombine-Community";
+		};
+		F2A2A4F12E3AE22A00B6ABD2 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseFunctions;
+		};
+		F2A2A4F32E3AE22A00B6ABD2 /* FirebaseFunctionsCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "FirebaseFunctionsCombine-Community";
+		};
 		F2B37FAC2E10F14F0060C5B2 /* FirebaseRemoteConfig */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F2B37FAB2E10F14F0060C5B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
