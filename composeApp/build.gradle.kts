@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     id("com.google.gms.google-services")
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -38,6 +39,8 @@ kotlin {
             implementation("com.google.firebase:firebase-database")
             implementation("com.google.firebase:firebase-database-ktx:20.3.0")
             implementation("dev.gitlive:firebase-common:1.8.0")
+            implementation("com.google.firebase:firebase-firestore-ktx:24.10.0")
+            implementation("com.google.firebase:firebase-bom:32.8.0")
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -55,6 +58,7 @@ kotlin {
             implementation("dev.gitlive:firebase-common:1.8.0")
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // required if not already
             implementation("media.kamel:kamel-image-default:1.0.7")
+            implementation("dev.gitlive:firebase-firestore:2.1.0")
 
         }
         commonTest.dependencies {
