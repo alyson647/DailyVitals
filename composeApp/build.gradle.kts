@@ -59,6 +59,7 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // required if not already
             implementation("media.kamel:kamel-image-default:1.0.7")
             implementation("dev.gitlive:firebase-firestore:2.1.0")
+            implementation(libs.navigation.compose)
 
         }
         commonTest.dependencies {
