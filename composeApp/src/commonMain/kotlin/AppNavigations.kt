@@ -5,8 +5,8 @@ internal enum class Screen {
     Home
 }
 
-internal sealed class OnboardingDirections {
-    data object Back : OnboardingDirections()
-    data object Next : OnboardingDirections()
-    data object Home : OnboardingDirections()
+internal sealed class AppDirections {
+    data object Back : AppDirections()
+    data object Next : AppDirections()
+    data object Home : AppDirections()
 }

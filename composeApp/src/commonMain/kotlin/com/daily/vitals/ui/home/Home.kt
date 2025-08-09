@@ -1,5 +1,6 @@
 package com.daily.vitals.ui.home
 
+import AppDirections
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,20 +19,22 @@ import com.daily.vitals.ui.home.component.Summary
 
 
 @Composable
-fun Home(
-    signedInName: String,
-    profileUrl: String
+internal fun Home(
+    modifier: Modifier = Modifier,
+    directions: (AppDirections) -> Unit = {}
 ) {
+    // TODO: get name, profile url information
+    // TODO: use directions for history screen once history screen created
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceContainerLow)
             .statusBarsPadding()
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HomeHeader(
-            name = signedInName,
-            profileUrl = profileUrl
+            name = "Buddy", // TODO: update with user name
+            profileUrl = "" // TODO: update with user profile image
         )
         Summary(modifier = Modifier.padding(horizontal = 16.dp))
         Spacer(modifier = Modifier.height(16.dp))

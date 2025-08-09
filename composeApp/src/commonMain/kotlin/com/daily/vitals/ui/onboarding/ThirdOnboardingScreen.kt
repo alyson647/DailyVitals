@@ -1,6 +1,6 @@
 package com.daily.vitals.ui.onboarding
 
-import OnboardingDirections
+import AppDirections
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,12 +13,12 @@ import dailyvitals.composeapp.generated.resources.onboarding_heading_three
 import dailyvitals.composeapp.generated.resources.onboarding_three
 import org.jetbrains.compose.resources.stringResource
 
-private var navigateTo: (OnboardingDirections) -> Unit = {}
+private var navigateTo: (AppDirections) -> Unit = {}
 
 @Composable
 internal fun ThirdOnboardingScreen(
     modifier: Modifier = Modifier,
-    directions: (OnboardingDirections) -> Unit = {},
+    directions: (AppDirections) -> Unit = {},
 ) {
     navigateTo = directions
 
@@ -30,9 +30,9 @@ internal fun ThirdOnboardingScreen(
         forwardButtonImage = Res.drawable.google_sign_in,
         backwardButtonImage = Res.drawable.arrow_left,
         progressFraction = 1f,
-        onSkipClick = { navigateTo(OnboardingDirections.Home) },
-        onForwardClick = { navigateTo(OnboardingDirections.Next) },
-        onBackClick = { navigateTo(OnboardingDirections.Back) },
+        onSkipClick = { navigateTo(AppDirections.Home) },
+        onForwardClick = { navigateTo(AppDirections.Next) },
+        onBackClick = { navigateTo(AppDirections.Back) },
         imageSizeDp = 48.dp
     )
 }

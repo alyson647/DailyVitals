@@ -1,6 +1,6 @@
 package com.daily.vitals
 
-import OnboardingDirections
+import AppDirections
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +24,8 @@ fun App() {
 
         val navController = rememberNavController()
 
+        // TODO: Issue 24 - check if the user is already logged in and if so, make
+        //  the start destination Home and get user information
         NavHost(
             navController = navController,
             startDestination = Screen.FirstOnboarding.name
@@ -45,8 +47,8 @@ internal fun NavGraphBuilder.appGraph(
             modifier = modifier
         ) { directions ->
             when (directions) {
-                is OnboardingDirections.Next -> navController.navigate(Screen.SecondOnboarding.name)
-                is OnboardingDirections.Home -> navController.navigate(Screen.Home.name)
+                is AppDirections.Next -> navController.navigate(Screen.SecondOnboarding.name)
+                is AppDirections.Home -> navController.navigate(Screen.Home.name)
                 else -> Unit
             }
         }
@@ -56,16 +58,16 @@ internal fun NavGraphBuilder.appGraph(
             modifier = modifier
         ) { directions ->
             when (directions) {
-                is OnboardingDirections.Next -> navController.navigate(Screen.ThirdOnboarding.name)
-                is OnboardingDirections.Home -> navController.navigate(Screen.Home.name)
-                is OnboardingDirections.Back -> navController.navigate(Screen.FirstOnboarding.name)
+                is AppDirections.Next -> navController.navigate(Screen.ThirdOnboarding.name)
+                is AppDirections.Home -> navController.navigate(Screen.Home.name)
+                is AppDirections.Back -> navController.navigate(Screen.FirstOnboarding.name)
             }
         }
     }
     composable(Screen.ThirdOnboarding.name) {
         var showSignInDialog by remember { mutableStateOf(false) }
 
-        // TODO: move this information to viewmodel or somewhere else
+        // TODO: save this information somewhere and remove this
         var signedInName by remember { mutableStateOf("") }
         var profileImage by remember { mutableStateOf("") }
 
@@ -73,9 +75,9 @@ internal fun NavGraphBuilder.appGraph(
             modifier = modifier
         ) { directions ->
             when (directions) {
-                is OnboardingDirections.Next -> showSignInDialog = true
-                is OnboardingDirections.Home -> navController.navigate(Screen.Home.name)
-                is OnboardingDirections.Back -> navController.navigate(Screen.SecondOnboarding.name)
+                is AppDirections.Next -> showSignInDialog = true
+                is AppDirections.Home -> navController.navigate(Screen.Home.name)
+                is AppDirections.Back -> navController.navigate(Screen.SecondOnboarding.name)
             }
         }
         if (showSignInDialog) {
@@ -87,9 +89,7 @@ internal fun NavGraphBuilder.appGraph(
 
             // TODO: Add directions param for dialog
             GoogleSignInDialog(
-                onSkipClick = { _, _ ->
-                    showSignInDialog = false
-                },
+                onClose = { showSignInDialog = false },
                 onButtonClick = { displayName, profileUrl ->
                     // TODO: save this information somewhere
                     signedInName = displayName
@@ -104,6 +104,12 @@ internal fun NavGraphBuilder.appGraph(
 
     }
     composable(Screen.Home.name) {
-        Home("test name", "")
+        Home(
+            modifier = modifier
+        ) { directions ->
+            when (directions) {
+                else -> Unit
+            }
+        }
     }
 }
