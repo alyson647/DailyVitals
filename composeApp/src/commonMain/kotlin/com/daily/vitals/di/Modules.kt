@@ -10,8 +10,11 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
+// Expect declaration for platform-specific module
+// Each platform must provide an actual implementation
 expect val platformModule: Module
 
+// Shared Koin module for common dependencies across all platforms
 val sharedModule = module {
     single<FirebaseFirestore> { Firebase.firestore }
     singleOf(::FirestoreUserRepository).bind<UserRepository>()

@@ -3,6 +3,7 @@ package com.daily.vitals.di
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 
+// Initializes Koin with shared and platform-specific modules
 fun initKoin(config: KoinAppDeclaration? = null) {
     startKoin {
         config?.invoke(this)
