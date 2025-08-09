@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.arrow_left
-import dailyvitals.composeapp.generated.resources.arrow_right
 import dailyvitals.composeapp.generated.resources.google_sign_in
 import dailyvitals.composeapp.generated.resources.onboarding_description_three
 import dailyvitals.composeapp.generated.resources.onboarding_heading_three
