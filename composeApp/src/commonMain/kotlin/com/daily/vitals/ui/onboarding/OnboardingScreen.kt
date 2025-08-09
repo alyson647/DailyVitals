@@ -83,14 +83,17 @@ private fun OnboardingScreenImpl(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                modifier = Modifier
-                    .clickable { onBackClick?.invoke() },
-                painter = painterResource(backwardButtonImage),
-                contentDescription = "Back",
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
-            )
-
+            if (onBackClick != null) {
+                Icon(
+                    modifier = Modifier
+                        .clickable { onBackClick.invoke() },
+                    painter = painterResource(backwardButtonImage),
+                    contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+            } else {
+                Spacer(modifier = Modifier.weight(1f))
+            }
             Text(
                 modifier = Modifier
                     .clickable { onSkipClick() },
