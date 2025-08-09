@@ -4,7 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.daily.vitals.theme.DailyVitalsTheme
 import com.daily.vitals.ui.home.Home
@@ -31,7 +35,7 @@ fun App() {
             var showSignInDialog by remember { mutableStateOf(false) }
 
             // signed-in info
-            var userId by remember { mutableStateOf("") }          // ⬅️ NEW
+            var userId by remember { mutableStateOf("") }
             var signedInName by remember { mutableStateOf("") }
             var profileImage by remember { mutableStateOf("") }
 
