@@ -1,5 +1,7 @@
 package com.daily.vitals.di
 
+import com.daily.vitals.domain.entry.repository.DailyEntryRepository
+import com.daily.vitals.domain.entry.repository.FirestoreEntryRepository
 import com.daily.vitals.domain.user.repository.FirestoreUserRepository
 import com.daily.vitals.domain.user.repository.UserRepository
 import dev.gitlive.firebase.Firebase
@@ -18,6 +20,7 @@ expect val platformModule: Module
 val sharedModule = module {
     single<FirebaseFirestore> { Firebase.firestore }
     singleOf(::FirestoreUserRepository).bind<UserRepository>()
+    singleOf(::FirestoreEntryRepository).bind<DailyEntryRepository>()
 
     // TODO: add view models here in this format
     // example: viewModelOf(::MyViewModel)
