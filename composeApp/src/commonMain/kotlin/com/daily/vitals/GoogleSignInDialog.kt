@@ -39,7 +39,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GoogleSignInDialog(
-    onSkipClick: ((String, String) -> Unit)?,
+    onClose: (() -> Unit)? = null,
     onButtonClick: ((String, String) -> Unit)?
 ) {
     var signedInUserName by remember { mutableStateOf("") }
@@ -82,7 +82,7 @@ fun GoogleSignInDialog(
                             .size(30.dp)
                             .align(Alignment.CenterEnd)
                             .padding(end = 10.dp)
-                            .clickable { onSkipClick?.invoke(signedInUserName, profileUrl) }
+                            .clickable { onClose?.invoke() }
                     )
                 }
 
