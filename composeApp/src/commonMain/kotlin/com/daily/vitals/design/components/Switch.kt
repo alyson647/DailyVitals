@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.component
+package com.daily.vitals.design.components
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch

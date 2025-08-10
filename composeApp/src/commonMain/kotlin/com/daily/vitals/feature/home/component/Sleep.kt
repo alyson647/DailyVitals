@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home.component
+package com.daily.vitals.feature.home.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -28,8 +28,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.daily.vitals.theme.labelLargeSemiBold
-import com.daily.vitals.ui.component.SleepIcon
+import com.daily.vitals.design.theme.labelLargeSemiBold
+import com.daily.vitals.design.components.SleepIcon
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.did_you_sleep_well
 import dailyvitals.composeapp.generated.resources.greater_seven_hours

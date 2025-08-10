@@ -10,11 +10,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.daily.vitals.theme.DailyVitalsTheme
+import com.daily.vitals.design.theme.DailyVitalsTheme
+import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
+import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
+import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
+import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
 import com.daily.vitals.ui.home.Home
-import com.daily.vitals.ui.onboarding.FirstOnboardingScreen
-import com.daily.vitals.ui.onboarding.SecondOnboardingScreen
-import com.daily.vitals.ui.onboarding.ThirdOnboardingScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 

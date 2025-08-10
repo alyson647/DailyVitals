@@ -1,4 +1,4 @@
-package com.daily.vitals.theme
+package com.daily.vitals.design.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable

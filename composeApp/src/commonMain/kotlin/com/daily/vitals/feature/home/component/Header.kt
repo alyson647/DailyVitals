@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home.component
+package com.daily.vitals.feature.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.daily.vitals.theme.titleMediumBold
+import com.daily.vitals.design.theme.titleMediumBold
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.generic_avatar
 import dailyvitals.composeapp.generated.resources.good_morning
