@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.onboarding
+package com.daily.vitals.feature.onboarding
 
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable

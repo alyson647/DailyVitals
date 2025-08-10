@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.onboarding
+package com.daily.vitals.feature.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.daily.vitals.ui.onboarding.component.OnboardingComponent
+import com.daily.vitals.feature.onboarding.component.OnboardingComponent
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.skip
 import org.jetbrains.compose.resources.DrawableResource

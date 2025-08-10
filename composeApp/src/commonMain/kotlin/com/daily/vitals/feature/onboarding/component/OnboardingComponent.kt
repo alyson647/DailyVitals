@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.onboarding.component
+package com.daily.vitals.feature.onboarding.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

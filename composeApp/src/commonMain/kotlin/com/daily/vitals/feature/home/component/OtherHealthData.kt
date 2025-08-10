@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home.component
+package com.daily.vitals.feature.home.component
 
 import History
 import androidx.compose.foundation.background

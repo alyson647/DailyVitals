@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home.component
+package com.daily.vitals.feature.home.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -31,12 +31,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.daily.vitals.theme.labelLargeSemiBold
-import com.daily.vitals.theme.titleLargeBold
-import com.daily.vitals.ui.component.GreenCheckIcon
-import com.daily.vitals.ui.component.PrimaryNumberField
-import com.daily.vitals.ui.component.RedCircleIcon
-import com.daily.vitals.ui.component.WarningIcon
+import com.daily.vitals.design.theme.labelLargeSemiBold
+import com.daily.vitals.design.theme.titleLargeBold
+import com.daily.vitals.design.components.GreenCheckIcon
+import com.daily.vitals.design.components.PrimaryNumberField
+import com.daily.vitals.design.components.RedCircleIcon
+import com.daily.vitals.design.components.WarningIcon
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.borderline_fasting
 import dailyvitals.composeapp.generated.resources.borderline_post_meal
