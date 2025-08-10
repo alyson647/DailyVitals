@@ -16,18 +16,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.daily.vitals.theme.DailyVitalsTheme
-import com.daily.vitals.ui.home.Home
-import com.daily.vitals.ui.onboarding.FirstOnboardingScreen
-import com.daily.vitals.ui.onboarding.SecondOnboardingScreen
-import com.daily.vitals.ui.onboarding.ThirdOnboardingScreen
 import com.daily.vitals.design.theme.DailyVitalsTheme
 import com.daily.vitals.feature.home.Home
 import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
 import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
 import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 import org.koin.core.annotation.KoinExperimentalAPI
 
