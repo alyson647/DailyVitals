@@ -41,6 +41,8 @@ kotlin {
             implementation("dev.gitlive:firebase-common:1.8.0")
             implementation("com.google.firebase:firebase-firestore-ktx:24.10.0")
             implementation("com.google.firebase:firebase-bom:32.8.0")
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -59,6 +61,10 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3") // required if not already
             implementation("media.kamel:kamel-image-default:1.0.7")
             implementation("dev.gitlive:firebase-firestore:2.1.0")
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.lifecycle.viewmodel)
             implementation(libs.navigation.compose)
 
         }

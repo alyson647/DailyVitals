@@ -5,7 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -17,23 +21,34 @@ import com.daily.vitals.ui.home.Home
 import com.daily.vitals.ui.onboarding.FirstOnboardingScreen
 import com.daily.vitals.ui.onboarding.SecondOnboardingScreen
 import com.daily.vitals.ui.onboarding.ThirdOnboardingScreen
+import com.daily.vitals.design.theme.DailyVitalsTheme
+import com.daily.vitals.feature.home.Home
+import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
+import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
+import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
+import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinContext
+import org.koin.core.annotation.KoinExperimentalAPI
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun App() {
     DailyVitalsTheme {
+        KoinContext {
+            val navController = rememberNavController()
 
-        val navController = rememberNavController()
-
-        // TODO: Issue 24 - check if the user is already logged in and if so, make
-        //  the start destination Home and get user information
-        NavHost(
-            navController = navController,
-            startDestination = Screen.FirstOnboarding.name
-        ) {
-            appGraph(
-                modifier = Modifier.fillMaxSize(),
-                navController = navController
-            )
+            // TODO: Issue 24 - check if the user is already logged in and if so, make
+            //  the start destination Home and get user information
+            NavHost(
+                navController = navController,
+                startDestination = Screen.FirstOnboarding.name
+            ) {
+                appGraph(
+                    modifier = Modifier.fillMaxSize(),
+                    navController = navController
+                )
+            }
         }
     }
 }
