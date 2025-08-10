@@ -43,7 +43,6 @@ fun Home(
                 Spacer(Modifier.height(32.dp)); CircularProgressIndicator()
             }
             ui.error != null -> {
-                // You can show a soft message, or fall back to basic UI:
                 BasicHomeContent(name = fallbackName, photo = fallbackPhoto)
             }
             else -> {
