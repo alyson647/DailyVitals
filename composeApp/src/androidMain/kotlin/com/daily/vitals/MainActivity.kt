@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.remember
 import com.daily.vitals.AppInitializer.onApplicationStart
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +15,11 @@ class MainActivity : ComponentActivity() {
         // THIS initializes the native FirebaseApp
         com.google.firebase.FirebaseApp.initializeApp(this)
         setContent {
-            App()
+            App(
+                prefs = remember {
+                    createDataStore(applicationContext)
+                }
+            )
         }
     }
 }

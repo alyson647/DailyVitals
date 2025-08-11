@@ -1,5 +1,6 @@
 package com.daily.vitals
 
+import androidx.compose.runtime.remember
 import androidx.compose.ui.window.ComposeUIViewController
 import com.daily.vitals.di.initKoin
 
@@ -9,5 +10,9 @@ fun MainViewController() = ComposeUIViewController(
         initKoin()
     }
 ) {
-    App()
+    App(
+        prefs = remember {
+            createDataStore()
+        }
+    )
 }
