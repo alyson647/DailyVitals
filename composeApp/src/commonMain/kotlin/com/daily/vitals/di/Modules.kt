@@ -24,5 +24,5 @@ val sharedModule = module {
     singleOf(::FirestoreUserRepository).bind<UserRepository>()
     singleOf(::FirestoreEntryRepository).bind<DailyEntryRepository>()
 
-    singleOf(::HomeViewModel)
+    viewModelOf(::HomeViewModel)
 }
