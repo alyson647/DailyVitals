@@ -22,7 +22,9 @@ import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
 import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
 import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
+import com.daily.vitals.ui.home.HomeViewModel
 import org.koin.compose.KoinContext
+import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @OptIn(KoinExperimentalAPI::class)
@@ -31,6 +33,7 @@ fun App() {
     DailyVitalsTheme {
         KoinContext {
             val navController = rememberNavController()
+            val homeViewModel = koinViewModel<HomeViewModel>()
 
             // TODO: Issue 24 - check if the user is already logged in and if so, make
             //  the start destination Home and get user information
@@ -40,7 +43,8 @@ fun App() {
             ) {
                 appGraph(
                     modifier = Modifier.fillMaxSize(),
-                    navController = navController
+                    navController = navController,
+                    homeViewModel = homeViewModel
                 )
             }
         }
@@ -49,7 +53,8 @@ fun App() {
 
 internal fun NavGraphBuilder.appGraph(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    homeViewModel: HomeViewModel
 ) {
     composable(Screen.FirstOnboarding.name) {
         FirstOnboardingScreen(
@@ -76,10 +81,6 @@ internal fun NavGraphBuilder.appGraph(
     composable(Screen.ThirdOnboarding.name) {
         var showSignInDialog by remember { mutableStateOf(false) }
 
-        // TODO: save this information somewhere and remove this
-        var signedInName by remember { mutableStateOf("") }
-        var profileImage by remember { mutableStateOf("") }
-
         ThirdOnboardingScreen(
             modifier = modifier
         ) { directions ->
@@ -98,11 +99,9 @@ internal fun NavGraphBuilder.appGraph(
 
             // TODO: Add directions param for dialog
             GoogleSignInDialog(
+                homeViewModel = homeViewModel,
                 onClose = { showSignInDialog = false },
-                onButtonClick = { displayName, profileUrl ->
-                    // TODO: save this information somewhere
-                    signedInName = displayName
-                    profileImage = profileUrl
+                onButtonClick = {
                     showSignInDialog = false
                     navController.navigate(Screen.Home.name) {
                         popUpTo(Screen.ThirdOnboarding.name) { inclusive = true }
@@ -114,7 +113,8 @@ internal fun NavGraphBuilder.appGraph(
     }
     composable(Screen.Home.name) {
         Home(
-            modifier = modifier
+            modifier = modifier,
+            homeViewModel = homeViewModel
         ) { directions ->
             when (directions) {
                 else -> Unit
