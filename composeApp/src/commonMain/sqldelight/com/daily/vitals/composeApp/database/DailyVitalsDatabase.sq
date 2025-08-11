@@ -1,0 +1,34 @@
+import kotlin.Boolean;
+
+CREATE TABLE User (
+	user_id TEXT PRIMARY KEY,
+	email TEXT,
+	name TEXT,
+	profile_picture TEXT
+);
+
+CREATE TABLE Entry (
+	entry_id TEXT PRIMARY KEY, -- stored as a date string: "YYYY-MM-DD"
+	user_id TEXT NOT NULL,
+	fasting INTEGER,
+	post_meal INTEGER,
+	exercise INTEGER AS Boolean, -- store boolean as integer (0 = false, 1 = true)
+	sleep INTEGER,
+	weight REAL,
+	FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+-- add default test data
+
+-- add functions too
+-- insert user
+
+-- select user
+
+-- select entry
+
+-- insert entry
+
+-- get entries by user
+
+-- update entry
