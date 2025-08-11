@@ -4,13 +4,20 @@ import AppDirections
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
@@ -23,30 +30,58 @@ import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
 import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
 import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
 import com.daily.vitals.ui.home.HomeViewModel
+import kotlinx.coroutines.launch
 import org.koin.compose.KoinContext
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import kotlinx.coroutines.flow.map
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
-fun App() {
+fun App(
+    prefs: DataStore<Preferences>
+) {
     DailyVitalsTheme {
         KoinContext {
+            val isLoggedIn by prefs
+                .data
+                .map {
+                    val loggedInKey = booleanPreferencesKey("logged_in")
+                    it[loggedInKey] == true
+                }
+                .collectAsState(null)
+
             val navController = rememberNavController()
             val homeViewModel = koinViewModel<HomeViewModel>()
 
             // TODO: Issue 24 - check if the user is already logged in and if so, make
             //  the start destination Home and get user information
-            NavHost(
-                navController = navController,
-                startDestination = Screen.FirstOnboarding.name
-            ) {
-                appGraph(
-                    modifier = Modifier.fillMaxSize(),
+            if (isLoggedIn != null) {
+                NavHost(
                     navController = navController,
-                    homeViewModel = homeViewModel
-                )
+                    startDestination = if (isLoggedIn == true) {
+                        Screen.Home.name
+                    } else {
+                        Screen.FirstOnboarding.name
+                    }
+                ) {
+                    appGraph(
+                        modifier = Modifier.fillMaxSize(),
+                        navController = navController,
+                        homeViewModel = homeViewModel,
+                        prefs = prefs
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
             }
+
         }
     }
 }
@@ -54,7 +89,8 @@ fun App() {
 internal fun NavGraphBuilder.appGraph(
     modifier: Modifier = Modifier,
     navController: NavController,
-    homeViewModel: HomeViewModel
+    homeViewModel: HomeViewModel,
+    prefs: DataStore<Preferences>
 ) {
     composable(Screen.FirstOnboarding.name) {
         FirstOnboardingScreen(
@@ -81,6 +117,8 @@ internal fun NavGraphBuilder.appGraph(
     composable(Screen.ThirdOnboarding.name) {
         var showSignInDialog by remember { mutableStateOf(false) }
 
+        val scope = rememberCoroutineScope()
+
         ThirdOnboardingScreen(
             modifier = modifier
         ) { directions ->
@@ -101,7 +139,18 @@ internal fun NavGraphBuilder.appGraph(
             GoogleSignInDialog(
                 homeViewModel = homeViewModel,
                 onClose = { showSignInDialog = false },
-                onButtonClick = {
+                onButtonClick = { userId ->
+                    // TODO: move logic to view model
+                    scope.launch {
+                        prefs.edit { dataStore ->
+                            val loggedInKey = booleanPreferencesKey("logged_in")
+                            val userIdKey = stringPreferencesKey("user_id")
+                            dataStore[loggedInKey] = true
+                            if (!userId.isEmpty()) {
+                                dataStore[userIdKey] = userId
+                            }
+                        }
+                    }
                     showSignInDialog = false
                     navController.navigate(Screen.Home.name) {
                         popUpTo(Screen.ThirdOnboarding.name) { inclusive = true }

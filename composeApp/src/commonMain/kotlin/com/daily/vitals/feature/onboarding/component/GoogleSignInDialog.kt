@@ -41,7 +41,7 @@ fun GoogleSignInDialog(
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel,
     onClose: () -> Unit = {},
-    onButtonClick: () -> Unit = {},
+    onButtonClick: (String) -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -108,7 +108,7 @@ fun GoogleSignInDialog(
                         .height(48.dp),
                     onFirebaseResult = { result ->
                         homeViewModel.load(userId = result.getOrNull()?.uid ?: "")
-                        onButtonClick.invoke()
+                        onButtonClick.invoke(result.getOrNull()?.uid ?: "")
                     }
                 )
             }
