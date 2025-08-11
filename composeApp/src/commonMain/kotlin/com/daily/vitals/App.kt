@@ -13,48 +13,42 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.daily.vitals.design.theme.DailyVitalsTheme
 import com.daily.vitals.feature.home.Home
 import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
 import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
 import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
-import com.daily.vitals.ui.home.HomeViewModel
-import org.koin.compose.KoinContext
-import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
 fun App() {
     DailyVitalsTheme {
-        KoinContext {
-            val navController = rememberNavController()
-            val homeViewModel = koinViewModel<HomeViewModel>()
+        val navController = rememberNavController()
 
-            // TODO: Issue 24 - check if the user is already logged in and if so, make
-            //  the start destination Home and get user information
-            NavHost(
-                navController = navController,
-                startDestination = Screen.FirstOnboarding.name
-            ) {
-                appGraph(
-                    modifier = Modifier.fillMaxSize(),
-                    navController = navController,
-                    homeViewModel = homeViewModel
-                )
-            }
+        // TODO: Issue 24 - check if the user is already logged in and if so, make
+        //  the start destination Home and get user information
+        NavHost(
+            navController = navController,
+            startDestination = Screen.FirstOnboarding.name
+        ) {
+            appGraph(
+                modifier = Modifier.fillMaxSize(),
+                navController = navController
+            )
         }
     }
 }
 
 internal fun NavGraphBuilder.appGraph(
     modifier: Modifier = Modifier,
-    navController: NavController,
-    homeViewModel: HomeViewModel
+    navController: NavController
 ) {
     composable(Screen.FirstOnboarding.name) {
         FirstOnboardingScreen(
@@ -97,15 +91,11 @@ internal fun NavGraphBuilder.appGraph(
                     .background(MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f))
             )
 
-            // TODO: Add directions param for dialog
             GoogleSignInDialog(
-                homeViewModel = homeViewModel,
                 onClose = { showSignInDialog = false },
-                onButtonClick = {
+                onButtonClick = { userId ->
                     showSignInDialog = false
-                    navController.navigate(Screen.Home.name) {
-                        popUpTo(Screen.ThirdOnboarding.name) { inclusive = true }
-                    }
+                    navController.navigate("home/$userId")
                 }
             )
         }
@@ -113,8 +103,22 @@ internal fun NavGraphBuilder.appGraph(
     }
     composable(Screen.Home.name) {
         Home(
+            modifier = modifier
+        ) { directions ->
+            when (directions) {
+                else -> Unit
+            }
+        }
+    }
+    composable(
+        route = "home/{userId}",
+        arguments = listOf(navArgument("userId") { type = NavType.StringType })
+    ) { backStackEntry ->
+        val userId = backStackEntry.arguments?.getString("userId") ?: ""
+
+        Home(
             modifier = modifier,
-            homeViewModel = homeViewModel
+            userId = userId
         ) { directions ->
             when (directions) {
                 else -> Unit
