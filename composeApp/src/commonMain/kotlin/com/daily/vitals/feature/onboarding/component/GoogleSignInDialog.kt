@@ -19,16 +19,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.daily.vitals.ui.home.HomeViewModel
 import com.mmk.kmpauth.firebase.google.GoogleButtonUiContainerFirebase
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.close_icon
@@ -36,16 +33,18 @@ import dailyvitals.composeapp.generated.resources.google_icon
 import dailyvitals.composeapp.generated.resources.mobile_check
 import dev.gitlive.firebase.auth.FirebaseUser
 import org.jetbrains.compose.resources.painterResource
+import org.koin.core.annotation.KoinExperimentalAPI
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun GoogleSignInDialog(
-    onClose: (() -> Unit)? = null,
-    onButtonClick: ((String, String) -> Unit)?
+    modifier: Modifier = Modifier,
+    homeViewModel: HomeViewModel,
+    onClose: () -> Unit = {},
+    onButtonClick: () -> Unit = {},
 ) {
-    var signedInUserName by remember { mutableStateOf("") }
-    var profileUrl by remember { mutableStateOf("") }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp)
     ) {
@@ -82,7 +81,7 @@ fun GoogleSignInDialog(
                             .size(30.dp)
                             .align(Alignment.CenterEnd)
                             .padding(end = 10.dp)
-                            .clickable { onClose?.invoke() }
+                            .clickable { onClose.invoke() }
                     )
                 }
 
@@ -108,9 +107,8 @@ fun GoogleSignInDialog(
                         .fillMaxWidth()
                         .height(48.dp),
                     onFirebaseResult = { result ->
-                        signedInUserName = result.getOrNull()?.displayName ?: "Signed In"
-                        profileUrl = result.getOrNull()?.photoURL ?: ""
-                        onButtonClick?.invoke(signedInUserName, profileUrl)
+                        homeViewModel.load(userId = result.getOrNull()?.uid ?: "")
+                        onButtonClick.invoke()
                     }
                 )
             }
