@@ -39,9 +39,8 @@ import org.koin.core.annotation.KoinExperimentalAPI
 @Composable
 fun GoogleSignInDialog(
     modifier: Modifier = Modifier,
-    homeViewModel: HomeViewModel,
     onClose: () -> Unit = {},
-    onButtonClick: () -> Unit = {},
+    onButtonClick: (String) -> Unit = {},
 ) {
     Box(
         modifier = modifier
@@ -107,8 +106,8 @@ fun GoogleSignInDialog(
                         .fillMaxWidth()
                         .height(48.dp),
                     onFirebaseResult = { result ->
-                        homeViewModel.load(userId = result.getOrNull()?.uid ?: "")
-                        onButtonClick.invoke()
+                        val userId = result.getOrNull()?.uid ?: return@AuthUiHelperButtonsAndFirebaseAuth
+                        onButtonClick.invoke(userId)
                     }
                 )
             }
