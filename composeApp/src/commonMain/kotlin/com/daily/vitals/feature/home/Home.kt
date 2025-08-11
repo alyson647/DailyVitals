@@ -21,15 +21,19 @@ import com.daily.vitals.feature.home.component.Summary
 import com.daily.vitals.ui.home.HomeViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 import androidx.compose.runtime.*
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
 internal fun Home(
     modifier: Modifier = Modifier,
-    homeViewModel: HomeViewModel,
+    userId: String = "",
+    viewModel: HomeViewModel = koinViewModel(),
     directions: (AppDirections) -> Unit = {},
 ) {
-    val ui by homeViewModel.ui.collectAsState()
+    // Normal signed-in flow
+    LaunchedEffect(userId) { viewModel.load(userId) }
+    val ui by viewModel.ui.collectAsState()
 
     // TODO: use directions for history screen once history screen created
     Column(
