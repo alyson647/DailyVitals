@@ -11,9 +11,5 @@ fun MainViewController() = ComposeUIViewController(
         initKoin()
     }
 ) {
-    App(
-        prefs = remember {
-            createDataStore()
-        }
-    )
+    App()
 }

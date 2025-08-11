@@ -5,11 +5,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.daily.vitals.design.theme.DailyVitalsTheme
 import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
@@ -18,6 +22,8 @@ import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
 import com.daily.vitals.ui.home.Home
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
 enum class Screen {
     FirstOnboarding,
@@ -27,12 +33,22 @@ enum class Screen {
     Home
 }
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 @Preview
 fun App() {
     DailyVitalsTheme {
         KoinContext {
-            var currentScreen by remember { mutableStateOf(Screen.FirstOnboarding) }
+            val userSessionViewModel = koinViewModel<UserSessionViewModel>()
+            val isLoggedIn by userSessionViewModel.isLoggedIn.collectAsState()
+            var currentScreen by remember { mutableStateOf<Screen?>(null) }
+
+            LaunchedEffect(isLoggedIn) {
+                if (currentScreen == null && isLoggedIn != null) {
+                    currentScreen = if (isLoggedIn == true) Screen.Home else Screen.FirstOnboarding
+                }
+            }
+
             var showSignInDialog by remember { mutableStateOf(false) }
 
             // signed-in info
@@ -88,6 +104,8 @@ fun App() {
                             userId = uid
                             showSignInDialog = false
                             currentScreen = Screen.Home
+                            userSessionViewModel.setLoggedIn()
+                            userSessionViewModel.setUserId(uid)
                         }
                     )
                 }

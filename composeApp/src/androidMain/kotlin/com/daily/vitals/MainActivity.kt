@@ -16,11 +16,7 @@ class MainActivity : ComponentActivity() {
         // THIS initializes the native FirebaseApp
         com.google.firebase.FirebaseApp.initializeApp(this)
         setContent {
-            App(
-                prefs = remember {
-                    createDataStore(applicationContext)
-                }
-            )
+            App()
         }
 
     }
