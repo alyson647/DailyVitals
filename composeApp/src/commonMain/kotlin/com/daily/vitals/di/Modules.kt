@@ -1,5 +1,6 @@
 package com.daily.vitals.di
 
+import com.daily.vitals.UserSessionViewModel
 import com.daily.vitals.domain.entry.repository.DailyEntryRepository
 import com.daily.vitals.domain.entry.repository.FirestoreEntryRepository
 import com.daily.vitals.domain.user.repository.FirestoreUserRepository
@@ -25,4 +26,5 @@ val sharedModule = module {
     singleOf(::FirestoreEntryRepository).bind<DailyEntryRepository>()
 
     viewModelOf(::HomeViewModel)
+    viewModelOf(::UserSessionViewModel)
 }

@@ -1,15 +1,13 @@
 package com.daily.vitals.di
 
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.daily.vitals.data.createDataStore
 import org.koin.dsl.module
 
 actual val platformModule = module {
-    // Add Android-specific services here
+    // Can declare dependencies specific to iOS here
     single<DataStore<Preferences>> {
-        val context: Context = get()
-        createDataStore(context)
+        createDataStore()
     }
 }

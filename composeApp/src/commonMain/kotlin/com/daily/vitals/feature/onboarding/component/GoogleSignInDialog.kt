@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.daily.vitals.UserSessionViewModel
 import com.mmk.kmpauth.firebase.google.GoogleButtonUiContainerFirebase
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.close_icon
@@ -32,6 +33,7 @@ import dailyvitals.composeapp.generated.resources.google_icon
 import dailyvitals.composeapp.generated.resources.mobile_check
 import dev.gitlive.firebase.auth.FirebaseUser
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @OptIn(KoinExperimentalAPI::class)
@@ -41,6 +43,7 @@ fun GoogleSignInDialog(
     onClose: () -> Unit = {},
     onButtonClick: (String) -> Unit = {},
 ) {
+    val userSessionViewModel: UserSessionViewModel = koinViewModel()
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -106,6 +109,8 @@ fun GoogleSignInDialog(
                         .height(48.dp),
                     onFirebaseResult = { result ->
                         val userId = result.getOrNull()?.uid ?: return@AuthUiHelperButtonsAndFirebaseAuth
+                        userSessionViewModel.setLoggedIn()
+                        userSessionViewModel.setUserId(userId)
                         onButtonClick.invoke(userId)
                     }
                 )
