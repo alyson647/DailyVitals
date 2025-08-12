@@ -1,37 +1,58 @@
-package com.daily.vitals.ui.home
+package com.daily.vitals.feature.home
 
+import AppDirections
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.daily.vitals.feature.home.component.HomeHeader
 import com.daily.vitals.feature.home.component.OtherHealthData
 import com.daily.vitals.feature.home.component.Summary
+import com.daily.vitals.ui.home.HomeViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
+import androidx.compose.runtime.*
+import com.daily.vitals.UserSessionViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
-fun Home(
-    userId: String?,
-    fallbackName: String,
-    fallbackPhoto: String,
-    viewModel: HomeViewModel = koinViewModel()
+internal fun Home(
+    modifier: Modifier = Modifier,
+    userId: String = "",
+    viewModel: HomeViewModel = koinViewModel(),
+    userSessionViewModel: UserSessionViewModel = koinViewModel(),
+    directions: (AppDirections) -> Unit = {},
 ) {
-    // If no userId just render fallback UI
-    if (userId.isNullOrBlank()) {
-        BasicHomeContent(name = fallbackName, photo = fallbackPhoto)
-        return
+    val dataStoreUserId by userSessionViewModel.userId.collectAsState()
+
+    LaunchedEffect(dataStoreUserId) {
+        if (dataStoreUserId.isNotBlank()) {
+            viewModel.load(dataStoreUserId)
+        }
     }
 
     // Normal signed-in flow
-    LaunchedEffect(userId) { viewModel.load(userId) }
+    LaunchedEffect(Unit) {
+        if (userId.isNotBlank()) {
+            viewModel.load(userId)
+        }
+    }
+
     val ui by viewModel.ui.collectAsState()
 
+    // TODO: use directions for history screen once history screen created
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceContainerLow)
             .statusBarsPadding()
             .fillMaxSize(),
@@ -41,34 +62,15 @@ fun Home(
             ui.isLoading -> {
                 Spacer(Modifier.height(32.dp)); CircularProgressIndicator()
             }
-            ui.error != null -> {
-                BasicHomeContent(name = fallbackName, photo = fallbackPhoto)
-            }
             else -> {
                 HomeHeader(
-                    name = ui.user?.name ?: fallbackName,
-                    profileUrl = ui.user?.profilePicture ?: fallbackPhoto
+                    name = ui.user?.name ?: "",
+                    profileUrl = ui.user?.profilePicture ?: ""
                 )
                 Summary(modifier = Modifier.padding(horizontal = 16.dp))
-                Spacer(Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 OtherHealthData()
             }
         }
-    }
-}
-
-@Composable
-private fun BasicHomeContent(name: String, photo: String) {
-    Column(
-        modifier = Modifier
-            .background(MaterialTheme.colorScheme.surfaceContainerLow)
-            .statusBarsPadding()
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        HomeHeader(name = name, profileUrl = photo)
-        Summary(modifier = Modifier.padding(horizontal = 16.dp))
-        Spacer(Modifier.height(16.dp))
-        OtherHealthData()
     }
 }

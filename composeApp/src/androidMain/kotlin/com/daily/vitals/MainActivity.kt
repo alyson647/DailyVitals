@@ -21,17 +21,5 @@ class MainActivity : ComponentActivity() {
         setContent {
             App()
         }
-
     }
-}
-
-// this works but is android specific
-fun basicReadWrite() {
-    // [START write_message]
-    // Write a message to the database
-    val database = Firebase.database
-    val myRef = database.getReference("message")
-
-    myRef.setValue("Hello, World - iOS!")
-    // [END write_message]
 }
