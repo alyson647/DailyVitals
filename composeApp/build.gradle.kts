@@ -71,9 +71,11 @@ kotlin {
             implementation(libs.coroutines.extensions)
 
         }
+        iosMain.dependencies {
+            implementation(libs.native.driver)
+        }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.native.driver)
         }
     }
 }
