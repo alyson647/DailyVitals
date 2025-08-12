@@ -12,8 +12,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import com.daily.vitals.design.theme.DailyVitalsTheme
 import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
