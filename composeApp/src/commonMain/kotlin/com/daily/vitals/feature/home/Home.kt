@@ -36,19 +36,18 @@ internal fun Home(
     val dataStoreUserId by userSessionViewModel.userId.collectAsState()
 
     LaunchedEffect(dataStoreUserId) {
-        viewModel.load(dataStoreUserId)
+        if (dataStoreUserId.isNotBlank()) {
+            viewModel.load(dataStoreUserId)
+        }
     }
+
     // Normal signed-in flow
-    LaunchedEffect(userId) {
-        if (userId != "") {
+    LaunchedEffect(Unit) {
+        if (userId.isNotBlank()) {
             viewModel.load(userId)
         }
     }
 
-    LaunchedEffect(Unit) {
-        userSessionViewModel.setLoggedIn()
-        userSessionViewModel.setUserId(userId)
-    }
     val ui by viewModel.ui.collectAsState()
 
     // TODO: use directions for history screen once history screen created
