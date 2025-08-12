@@ -1,15 +1,19 @@
 package com.daily.vitals
 
 import AppDirections
+import Screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -24,6 +28,7 @@ import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
 import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
 import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
+import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 
 @OptIn(KoinExperimentalAPI::class)
@@ -32,16 +37,26 @@ fun App() {
     DailyVitalsTheme {
         val navController = rememberNavController()
 
-        // TODO: Issue 24 - check if the user is already logged in and if so, make
-        //  the start destination Home and get user information
-        NavHost(
-            navController = navController,
-            startDestination = Screen.FirstOnboarding.name
-        ) {
-            appGraph(
-                modifier = Modifier.fillMaxSize(),
-                navController = navController
-            )
+        val userSessionViewModel = koinViewModel<UserSessionViewModel>()
+        val isLoggedIn by userSessionViewModel.isLoggedIn.collectAsState()
+
+        var currentScreen by remember { mutableStateOf<String?>(null) }
+
+        LaunchedEffect(isLoggedIn) {
+            if (currentScreen == null && isLoggedIn != null) {
+                currentScreen = if (isLoggedIn == true) Screen.Home.name else Screen.FirstOnboarding.name
+            }
+        }
+        currentScreen?.let {
+            NavHost(
+                navController = navController,
+                startDestination = it
+            ) {
+                appGraph(
+                    modifier = Modifier.fillMaxSize(),
+                    navController = navController
+                )
+            }
         }
     }
 }
