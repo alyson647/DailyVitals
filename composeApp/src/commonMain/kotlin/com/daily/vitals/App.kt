@@ -10,7 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.daily.vitals.composeApp.database.DailyVitalsDatabase
 import com.daily.vitals.design.theme.DailyVitalsTheme
 import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
@@ -30,9 +29,7 @@ enum class Screen {
 
 @Composable
 @Preview
-fun App(
-    database: DailyVitalsDatabase
-) {
+fun App() {
     DailyVitalsTheme {
         KoinContext {
             var currentScreen by remember { mutableStateOf(Screen.FirstOnboarding) }

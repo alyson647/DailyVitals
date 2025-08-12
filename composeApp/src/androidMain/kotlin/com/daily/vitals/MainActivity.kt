@@ -19,8 +19,7 @@ class MainActivity : ComponentActivity() {
         // THIS initializes the native FirebaseApp
         com.google.firebase.FirebaseApp.initializeApp(this)
         setContent {
-            val database = DailyVitalsDatabase(DatabaseDriverFactory(LocalContext.current).createDriver())
-            App(database)
+            App()
         }
 
     }

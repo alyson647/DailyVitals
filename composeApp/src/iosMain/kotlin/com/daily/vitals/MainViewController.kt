@@ -11,6 +11,5 @@ fun MainViewController() = ComposeUIViewController(
         initKoin()
     }
 ) {
-    val database = DailyVitalsDatabase(DatabaseDriverFactory().createDriver())
-    App(database)
+    App()
 }
