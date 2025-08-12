@@ -1,5 +1,6 @@
 package com.daily.vitals
 
+import AppDirections
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,87 +11,117 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.daily.vitals.design.theme.DailyVitalsTheme
+import com.daily.vitals.feature.home.Home
 import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
 import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
 import com.daily.vitals.feature.onboarding.ThirdOnboardingScreen
-import com.daily.vitals.ui.home.Home
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.KoinContext
+import org.koin.core.annotation.KoinExperimentalAPI
 
-enum class Screen {
-    FirstOnboarding,
-    SecondOnboarding,
-    ThirdOnboarding,
-    SignIn,
-    Home
-}
-
+@OptIn(KoinExperimentalAPI::class)
 @Composable
-@Preview
 fun App() {
     DailyVitalsTheme {
-        KoinContext {
-            var currentScreen by remember { mutableStateOf(Screen.FirstOnboarding) }
-            var showSignInDialog by remember { mutableStateOf(false) }
+        val navController = rememberNavController()
 
-            // signed-in info
-            var userId by remember { mutableStateOf("") }
-            var signedInName by remember { mutableStateOf("") }
-            var profileImage by remember { mutableStateOf("") }
+        // TODO: Issue 24 - check if the user is already logged in and if so, make
+        //  the start destination Home and get user information
+        NavHost(
+            navController = navController,
+            startDestination = Screen.FirstOnboarding.name
+        ) {
+            appGraph(
+                modifier = Modifier.fillMaxSize(),
+                navController = navController
+            )
+        }
+    }
+}
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                when (currentScreen) {
-                    Screen.FirstOnboarding -> FirstOnboardingScreen(
-                        onSkipClick = { showSignInDialog = true },
-                        onForwardClick = { currentScreen = Screen.SecondOnboarding }
-                    )
+internal fun NavGraphBuilder.appGraph(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
+    composable(Screen.FirstOnboarding.name) {
+        FirstOnboardingScreen(
+            modifier = modifier
+        ) { directions ->
+            when (directions) {
+                is AppDirections.Next -> navController.navigate(Screen.SecondOnboarding.name)
+                is AppDirections.Home -> navController.navigate(Screen.Home.name)
+                else -> Unit
+            }
+        }
+    }
+    composable(Screen.SecondOnboarding.name) {
+        SecondOnboardingScreen(
+            modifier = modifier
+        ) { directions ->
+            when (directions) {
+                is AppDirections.Next -> navController.navigate(Screen.ThirdOnboarding.name)
+                is AppDirections.Home -> navController.navigate(Screen.Home.name)
+                is AppDirections.Back -> navController.navigate(Screen.FirstOnboarding.name)
+            }
+        }
+    }
+    composable(Screen.ThirdOnboarding.name) {
+        var showSignInDialog by remember { mutableStateOf(false) }
 
-                    Screen.SecondOnboarding -> SecondOnboardingScreen(
-                        onSkipClick = { showSignInDialog = true },
-                        onForwardClick = { currentScreen = Screen.ThirdOnboarding },
-                        onBackClick = { currentScreen = Screen.FirstOnboarding }
-                    )
+        ThirdOnboardingScreen(
+            modifier = modifier
+        ) { directions ->
+            when (directions) {
+                is AppDirections.Next -> showSignInDialog = true
+                is AppDirections.Home -> navController.navigate(Screen.Home.name)
+                is AppDirections.Back -> navController.navigate(Screen.SecondOnboarding.name)
+            }
+        }
+        if (showSignInDialog) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f))
+            )
 
-                    Screen.ThirdOnboarding -> ThirdOnboardingScreen(
-                        onSkipClick = { showSignInDialog = true },
-                        onForwardClick = { showSignInDialog = true },
-                        onBackClick = { currentScreen = Screen.SecondOnboarding }
-                    )
-
-                    Screen.Home -> Home(
-                        userId = userId,
-                        fallbackName = signedInName,
-                        fallbackPhoto = profileImage
-                    )
-
-                    else -> {}
+            GoogleSignInDialog(
+                onClose = { showSignInDialog = false },
+                onButtonClick = { userId ->
+                    showSignInDialog = false
+                    navController.navigate("home/$userId")
                 }
+            )
+        }
 
-                if (showSignInDialog) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.1f))
-                    )
+    }
+    composable(Screen.Home.name) {
+        Home(
+            modifier = modifier
+        ) { directions ->
+            when (directions) {
+                else -> Unit
+            }
+        }
+    }
+    composable(
+        route = "home/{userId}",
+        arguments = listOf(navArgument("userId") { type = NavType.StringType })
+    ) { backStackEntry ->
+        val userId = backStackEntry.arguments?.getString("userId") ?: ""
 
-                    // NOTE: onButtonClick now returns uid too (see change below)
-                    GoogleSignInDialog(
-                        onSkipClick = { _, _ ->
-                            // If skipping sign-in, keep userId empty; Home can guard against empty IDs.
-                            showSignInDialog = false
-                            currentScreen = Screen.Home
-                        },
-                        onButtonClick = { displayName, profileUrl, uid ->
-                            signedInName = displayName
-                            profileImage = profileUrl
-                            userId = uid
-                            showSignInDialog = false
-                            currentScreen = Screen.Home
-                        }
-                    )
-                }
+        Home(
+            modifier = modifier,
+            userId = userId
+        ) { directions ->
+            when (directions) {
+                else -> Unit
             }
         }
     }

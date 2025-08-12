@@ -19,10 +19,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,16 +32,17 @@ import dailyvitals.composeapp.generated.resources.google_icon
 import dailyvitals.composeapp.generated.resources.mobile_check
 import dev.gitlive.firebase.auth.FirebaseUser
 import org.jetbrains.compose.resources.painterResource
+import org.koin.core.annotation.KoinExperimentalAPI
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun GoogleSignInDialog(
-    onSkipClick: ((String, String) -> Unit)?,
-    onButtonClick: ((String, String, String) -> Unit)?
+    modifier: Modifier = Modifier,
+    onClose: () -> Unit = {},
+    onButtonClick: (String) -> Unit = {},
 ) {
-    var signedInUserName by remember { mutableStateOf("") }
-    var profileUrl by remember { mutableStateOf("") }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp)
     ) {
@@ -82,7 +79,7 @@ fun GoogleSignInDialog(
                             .size(30.dp)
                             .align(Alignment.CenterEnd)
                             .padding(end = 10.dp)
-                            .clickable { onSkipClick?.invoke(signedInUserName, profileUrl) }
+                            .clickable { onClose.invoke() }
                     )
                 }
 
@@ -108,11 +105,8 @@ fun GoogleSignInDialog(
                         .fillMaxWidth()
                         .height(48.dp),
                     onFirebaseResult = { result ->
-                        val user = result.getOrNull()
-                        signedInUserName = result.getOrNull()?.displayName ?: "Signed In"
-                        profileUrl = result.getOrNull()?.photoURL ?: ""
-                        val uid = user?.uid ?: ""
-                        onButtonClick?.invoke(signedInUserName, profileUrl,uid)
+                        val userId = result.getOrNull()?.uid ?: return@AuthUiHelperButtonsAndFirebaseAuth
+                        onButtonClick.invoke(userId)
                     }
                 )
             }
