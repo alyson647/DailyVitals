@@ -1,4 +1,4 @@
-package com.daily.vitals.ui.home
+package com.daily.vitals.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
