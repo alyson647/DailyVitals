@@ -1,9 +1,6 @@
-package com.daily.vitals.domain.entry.repository
+package com.daily.vitals.domain.user.repository
 
 import com.daily.vitals.domain.user.model.User
-import com.daily.vitals.domain.user.repository.FirestoreUserRepository
-import com.daily.vitals.domain.user.repository.SqlDelightUserRepository
-import com.daily.vitals.domain.user.repository.UserRepository
 import com.daily.vitals.feature.UserSessionProvider
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
