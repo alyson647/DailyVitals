@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.daily.vitals.feature.home.component.HomeHeader
 import com.daily.vitals.feature.home.component.OtherHealthData
 import com.daily.vitals.feature.home.component.Summary
-import com.daily.vitals.ui.home.HomeViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 import androidx.compose.runtime.*
 import com.daily.vitals.UserSessionViewModel
