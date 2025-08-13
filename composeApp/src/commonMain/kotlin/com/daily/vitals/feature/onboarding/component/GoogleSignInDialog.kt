@@ -111,6 +111,7 @@ fun GoogleSignInDialog(
                         val userId = result.getOrNull()?.uid ?: return@AuthUiHelperButtonsAndFirebaseAuth
                         userSessionViewModel.setLoggedIn()
                         userSessionViewModel.setUserId(userId)
+                        userSessionViewModel.setIsLocal(false)
                         onButtonClick.invoke(userId)
                     }
                 )
