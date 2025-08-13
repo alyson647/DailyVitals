@@ -40,17 +40,12 @@ fun App() {
         val userSessionViewModel = koinViewModel<UserSessionViewModel>()
         val isLoggedIn by userSessionViewModel.isLoggedIn.collectAsState()
 
-        var currentScreen by remember { mutableStateOf<String?>(null) }
+        isLoggedIn?.let {
+            val startDestination = if (isLoggedIn == true) Screen.Home.name else Screen.FirstOnboarding.name
 
-        LaunchedEffect(isLoggedIn) {
-            if (currentScreen == null && isLoggedIn != null) {
-                currentScreen = if (isLoggedIn == true) Screen.Home.name else Screen.FirstOnboarding.name
-            }
-        }
-        currentScreen?.let {
             NavHost(
                 navController = navController,
-                startDestination = it
+                startDestination = startDestination
             ) {
                 appGraph(
                     modifier = Modifier.fillMaxSize(),
