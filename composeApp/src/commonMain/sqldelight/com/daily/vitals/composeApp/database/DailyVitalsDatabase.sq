@@ -19,7 +19,7 @@ CREATE TABLE Entry (
 );
 
 insertUser:
-INSERT INTO User(user_id, email, name, profile_picture)
+INSERT OR REPLACE INTO User(user_id, email, name, profile_picture)
 VALUES(?, ?, ?, ?);
 
 selectUserById:
@@ -27,7 +27,7 @@ SELECT * FROM User
 WHERE user_id = ?;
 
 insertEntry:
-INSERT INTO Entry(entry_id, user_id, fasting, post_meal, exercise, sleep, weight)
+INSERT OR REPLACE INTO Entry(entry_id, user_id, fasting, post_meal, exercise, sleep, weight)
 VALUES (?, ?, ?, ?, ?, ?, ?);
 
 selectEntryByUserAndId:
