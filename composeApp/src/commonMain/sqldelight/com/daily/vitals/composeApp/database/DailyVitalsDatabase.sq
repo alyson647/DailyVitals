@@ -30,11 +30,11 @@ insertEntry:
 INSERT INTO Entry(entry_id, user_id, fasting, post_meal, exercise, sleep, weight)
 VALUES (?, ?, ?, ?, ?, ?, ?);
 
-selectEntryById:
+selectEntryByUserAndId:
 SELECT * FROM Entry
-WHERE entry_id = ?;
+WHERE entry_id = ? AND user_id = ?;
 
-getEntriesByUser:
+selectEntriesByUser:
 SELECT * FROM Entry
 WHERE user_id = ?
 ORDER BY entry_id DESC;
