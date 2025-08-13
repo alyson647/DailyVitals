@@ -120,9 +120,9 @@ fun GoogleSignInDialog(
                         val profilePicture = result.getOrNull()?.photoURL ?: ""
                         val name = result.getOrNull()?.displayName ?: ""
                         scope.launch {
+                            userSessionViewModel.setUserId(userId)
                             userSessionViewModel.setIsLocal(false)
                             userSessionViewModel.setLoggedIn()
-                            userSessionViewModel.setUserId(userId)
 
                             onboardingViewModel.addUser(
                                 user = User(
@@ -132,8 +132,8 @@ fun GoogleSignInDialog(
                                     name = name
                                 )
                             )
+                            onButtonClick.invoke(userId)
                         }
-                        onButtonClick.invoke(userId)
                     }
                 )
             }

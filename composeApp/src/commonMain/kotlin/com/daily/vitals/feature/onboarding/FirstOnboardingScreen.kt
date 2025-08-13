@@ -54,8 +54,8 @@ internal fun FirstOnboardingScreen(
                         name = "Test name"
                     )
                 )
+                navigateTo(AppDirections.Home)
             }
-            navigateTo(AppDirections.Home)
         },
         onForwardClick = { navigateTo(AppDirections.Next) },
         onBackClick = null // no back button on first screen

@@ -54,8 +54,8 @@ internal fun SecondOnboardingScreen(
                         name = "Test name"
                     )
                 )
+                navigateTo(AppDirections.Home)
             }
-            navigateTo(AppDirections.Home)
         },
         onForwardClick = { navigateTo(AppDirections.Next) },
         onBackClick = { navigateTo(AppDirections.Back) }
