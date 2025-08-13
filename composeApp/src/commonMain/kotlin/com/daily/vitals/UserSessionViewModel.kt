@@ -34,32 +34,26 @@ class UserSessionViewModel(
         }
     }
 
-    fun setLoggedIn() {
-        viewModelScope.launch {
-            prefs.edit { preferences ->
-                preferences[LOGGED_IN_KEY] = true
-            }
-            _isLoggedIn.value = true
+    suspend fun setLoggedIn() {
+        prefs.edit { preferences ->
+            preferences[LOGGED_IN_KEY] = true
         }
+        _isLoggedIn.value = true
     }
 
-    fun setUserId(userId: String) {
+    suspend fun setUserId(userId: String) {
         if (userId == "") return
-        viewModelScope.launch {
-            prefs.edit { preferences ->
-                preferences[USER_ID_KEY] = userId
-            }
-            _userId.value = userId
+        prefs.edit { preferences ->
+            preferences[USER_ID_KEY] = userId
         }
+        _userId.value = userId
     }
 
-    fun setIsLocal(value: Boolean) {
-        viewModelScope.launch {
-            prefs.edit { preferences ->
-                preferences[LOCAL_KEY] = value
-            }
-            _isLocal.value = value
+    suspend fun setIsLocal(value: Boolean) {
+        prefs.edit { preferences ->
+            preferences[LOCAL_KEY] = value
         }
+        _isLocal.value = value
     }
 
     companion object {
