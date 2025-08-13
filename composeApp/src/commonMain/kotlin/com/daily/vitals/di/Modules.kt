@@ -1,10 +1,14 @@
 package com.daily.vitals.di
 
 import com.daily.vitals.UserSessionViewModel
+import com.daily.vitals.domain.entry.repository.DailyEntryRepository
+import com.daily.vitals.domain.entry.repository.DynamicUserRepository
 import com.daily.vitals.domain.entry.repository.FirestoreEntryRepository
 import com.daily.vitals.domain.entry.repository.SqlDelightEntryRepository
 import com.daily.vitals.domain.user.repository.FirestoreUserRepository
 import com.daily.vitals.domain.user.repository.SqlDelightUserRepository
+import com.daily.vitals.domain.user.repository.UserRepository
+import com.daily.vitals.feature.UserSessionProvider
 import com.daily.vitals.ui.home.HomeViewModel
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
@@ -14,6 +18,8 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.koin.compose.viewmodel.dsl.viewModelOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 
 // Expect declaration for platform-specific module
 // Each platform must provide an actual implementation
@@ -27,8 +33,12 @@ val sharedModule = module {
     single<FirestoreUserRepository> { FirestoreUserRepository(get()) }
     single<SqlDelightUserRepository> { SqlDelightUserRepository(get(), get()) }
 
-    single<FirestoreEntryRepository> { FirestoreEntryRepository(get()) }
+    single<DailyEntryRepository> { FirestoreEntryRepository(get()) }
     single<SqlDelightEntryRepository> { SqlDelightEntryRepository(get(), get()) }
+
+    single { UserSessionProvider(get()) }
+
+    singleOf(::DynamicUserRepository).bind<UserRepository>()
 
     viewModelOf(::HomeViewModel)
     viewModelOf(::UserSessionViewModel)
