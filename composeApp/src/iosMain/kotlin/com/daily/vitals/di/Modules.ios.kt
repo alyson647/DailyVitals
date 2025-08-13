@@ -13,8 +13,6 @@ actual val platformModule = module {
     single<DataStore<Preferences>> {
         createDataStore()
     }
-    // Can declare dependencies specific to ios here
-
     single<DatabaseDriverFactory> { DatabaseDriverFactory() }
     single<SqlDriver> { get<DatabaseDriverFactory>().createDriver() }
     single { DailyVitalsDatabase(get()) }

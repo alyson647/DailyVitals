@@ -15,7 +15,6 @@ actual val platformModule = module {
         val context: Context = get()
         createDataStore(context)
     }
-
     single<DatabaseDriverFactory> { DatabaseDriverFactory(get()) }
     single<SqlDriver> { get<DatabaseDriverFactory>().createDriver() }
     single { DailyVitalsDatabase(get()) }
