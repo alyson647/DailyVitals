@@ -2,14 +2,15 @@ package com.daily.vitals.di
 
 import com.daily.vitals.UserSessionViewModel
 import com.daily.vitals.domain.entry.repository.DailyEntryRepository
-import com.daily.vitals.domain.entry.repository.DynamicUserRepository
+import com.daily.vitals.domain.user.repository.DynamicUserRepository
 import com.daily.vitals.domain.entry.repository.FirestoreEntryRepository
 import com.daily.vitals.domain.entry.repository.SqlDelightEntryRepository
 import com.daily.vitals.domain.user.repository.FirestoreUserRepository
 import com.daily.vitals.domain.user.repository.SqlDelightUserRepository
 import com.daily.vitals.domain.user.repository.UserRepository
 import com.daily.vitals.feature.UserSessionProvider
-import com.daily.vitals.ui.home.HomeViewModel
+import com.daily.vitals.feature.onboarding.OnboardingViewModel
+import com.daily.vitals.feature.home.HomeViewModel
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
 import dev.gitlive.firebase.firestore.firestore
@@ -42,4 +43,5 @@ val sharedModule = module {
 
     viewModelOf(::HomeViewModel)
     viewModelOf(::UserSessionViewModel)
+    viewModelOf(::OnboardingViewModel)
 }
