@@ -5,7 +5,6 @@ import com.daily.vitals.domain.entry.repository.DailyEntryRepository
 import com.daily.vitals.domain.entry.repository.FirestoreEntryRepository
 import com.daily.vitals.domain.user.repository.FirestoreUserRepository
 import com.daily.vitals.domain.user.repository.SqlDelightUserRepository
-import com.daily.vitals.domain.user.repository.UserRepository
 import com.daily.vitals.ui.home.HomeViewModel
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
