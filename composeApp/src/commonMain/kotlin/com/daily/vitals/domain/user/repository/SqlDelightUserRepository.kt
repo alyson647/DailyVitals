@@ -4,7 +4,7 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToOneNotNull
 import com.daily.vitals.composeApp.database.DailyVitalsDatabase
 import com.daily.vitals.domain.user.model.User
-import com.daily.vitals.domain.user.model.toDomain
+import com.daily.vitals.domain.user.model.toUserModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,7 +19,7 @@ class SqlDelightUserRepository(
             .selectUserById(id)
             .asFlow()
             .mapToOneNotNull(dispatcher)
-            .map { dbUser -> dbUser.toDomain() }
+            .map { dbUser -> dbUser.toUserModel() }
     }
 
     override suspend fun addUser(user: User) {
