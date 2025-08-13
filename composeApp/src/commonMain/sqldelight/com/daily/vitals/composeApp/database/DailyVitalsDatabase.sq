@@ -12,46 +12,33 @@ CREATE TABLE Entry (
 	user_id TEXT NOT NULL,
 	fasting INTEGER,
 	post_meal INTEGER,
-	exercise INTEGER AS Boolean, -- store boolean as integer (0 = false, 1 = true)
+	exercise INTEGER AS Boolean, -- stored boolean as integer (0 = false, 1 = true)
 	sleep INTEGER,
 	weight REAL,
 	FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
 
--- add default test data
-
--- add functions too
--- insert user
 insertUser:
 INSERT INTO User(user_id, email, name, profile_picture)
 VALUES(?, ?, ?, ?);
 
--- select user by id
 selectUserById:
 SELECT * FROM User
 WHERE user_id = ?;
 
--- select all users
-selectAllUsers:
-SELECT * FROM User;
-
--- insert entry
 insertEntry:
 INSERT INTO Entry(entry_id, user_id, fasting, post_meal, exercise, sleep, weight)
 VALUES (?, ?, ?, ?, ?, ?, ?);
 
--- select entry by id
 selectEntryById:
 SELECT * FROM Entry
 WHERE entry_id = ?;
 
--- select all entries for a user - ordered by date
 getEntriesByUser:
 SELECT * FROM Entry
 WHERE user_id = ?
 ORDER BY entry_id DESC;
 
--- update entry
 updateEntry:
 UPDATE Entry
 SET fasting = ?,
@@ -61,10 +48,6 @@ SET fasting = ?,
     weight = ?
 WHERE entry_id = ? AND user_id = ?;
 
--- delete Entry:
+deleteEntry:
 DELETE FROM Entry
 WHERE entry_id = ? AND user_id = ?;
-
--- get entries by user
-
--- update entry
