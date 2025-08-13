@@ -1,10 +1,12 @@
 package com.daily.vitals.di
 
 import com.daily.vitals.UserSessionViewModel
+import com.daily.vitals.domain.entry.repository.DailyEntryRepository
 import com.daily.vitals.domain.entry.repository.FirestoreEntryRepository
 import com.daily.vitals.domain.entry.repository.SqlDelightEntryRepository
 import com.daily.vitals.domain.user.repository.FirestoreUserRepository
 import com.daily.vitals.domain.user.repository.SqlDelightUserRepository
+import com.daily.vitals.domain.user.repository.UserRepository
 import com.daily.vitals.ui.home.HomeViewModel
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.FirebaseFirestore
@@ -24,10 +26,10 @@ val sharedModule = module {
     single<FirebaseFirestore> { Firebase.firestore }
     single<CoroutineDispatcher> { Dispatchers.Default }
 
-    single<FirestoreUserRepository> { FirestoreUserRepository(get()) }
+    single<UserRepository> { FirestoreUserRepository(get()) }
     single<SqlDelightUserRepository> { SqlDelightUserRepository(get(), get()) }
 
-    single<FirestoreEntryRepository> { FirestoreEntryRepository(get()) }
+    single<DailyEntryRepository> { FirestoreEntryRepository(get()) }
     single<SqlDelightEntryRepository> { SqlDelightEntryRepository(get(), get()) }
 
     viewModelOf(::HomeViewModel)
