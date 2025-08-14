@@ -55,6 +55,8 @@ internal fun Home(
 
     val ui by viewModel.ui.collectAsState()
 
+    val currentEntry by viewModel.currentEntry.collectAsState()
+
     // TODO: use directions for history screen once history screen created
     Column(
         modifier = modifier
@@ -67,25 +69,29 @@ internal fun Home(
             ui.isLoading -> {
                 Spacer(Modifier.height(32.dp)); CircularProgressIndicator()
             }
-            else -> {
-                val currentEntry = ui.entries.find { it.id == testDate } // TODO: change to current date
+            ui.isLoaded -> {
                 HomeHeader(
                     name = ui.user?.name ?: "",
                     profileUrl = ui.user?.profilePicture ?: ""
                 )
                 Summary(
                     modifier = Modifier.padding(horizontal = 16.dp),
-                    currentDate = testDate,
+                    currentDate = currentDate,
+                    viewModel = viewModel,
+                    userId = dataStoreUserId,
                     fasting = (currentEntry?.fasting ?: "").toString(),
-                    postMeal = (currentEntry?.fasting ?: "").toString()
+                    postMeal = (currentEntry?.postMeal ?: "").toString()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 OtherHealthData(
                     entries = ui.entries,
+                    viewModel = viewModel,
+                    userId = dataStoreUserId,
                     currentEntry = currentEntry,
-                    currentDate = testDate // TODO: change to current date
+                    currentDate = currentDate
                 )
             }
+            else -> Unit
         }
     }
 }
