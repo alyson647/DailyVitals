@@ -2,6 +2,7 @@ package com.daily.vitals.di
 
 import com.daily.vitals.UserSessionViewModel
 import com.daily.vitals.domain.entry.repository.DailyEntryRepository
+import com.daily.vitals.domain.entry.repository.DynamicEntryRepository
 import com.daily.vitals.domain.user.repository.DynamicUserRepository
 import com.daily.vitals.domain.entry.repository.FirestoreEntryRepository
 import com.daily.vitals.domain.entry.repository.SqlDelightEntryRepository
@@ -34,12 +35,13 @@ val sharedModule = module {
     single<FirestoreUserRepository> { FirestoreUserRepository(get()) }
     single<SqlDelightUserRepository> { SqlDelightUserRepository(get(), get()) }
 
-    single<DailyEntryRepository> { FirestoreEntryRepository(get()) }
+    single<FirestoreEntryRepository> { FirestoreEntryRepository(get()) }
     single<SqlDelightEntryRepository> { SqlDelightEntryRepository(get(), get()) }
 
     single { UserSessionProvider(get()) }
 
     singleOf(::DynamicUserRepository).bind<UserRepository>()
+    singleOf(::DynamicEntryRepository).bind<DailyEntryRepository>()
 
     viewModelOf(::HomeViewModel)
     viewModelOf(::UserSessionViewModel)
