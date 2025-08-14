@@ -71,6 +71,7 @@ kotlin {
             api(libs.datastore.preferences)
             api(libs.datastore)
             implementation(libs.coroutines.extensions)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
 
         }
         iosMain.dependencies {
