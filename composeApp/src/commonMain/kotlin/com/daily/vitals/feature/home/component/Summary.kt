@@ -37,6 +37,7 @@ import com.daily.vitals.design.components.GreenCheckIcon
 import com.daily.vitals.design.components.PrimaryNumberField
 import com.daily.vitals.design.components.RedCircleIcon
 import com.daily.vitals.design.components.WarningIcon
+import com.daily.vitals.feature.home.HomeViewModel
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.borderline_fasting
 import dailyvitals.composeapp.generated.resources.borderline_post_meal
@@ -59,12 +60,16 @@ import org.jetbrains.compose.resources.stringResource
 fun Summary(
     modifier: Modifier = Modifier,
     currentDate: String,
+    userId: String,
+    viewModel: HomeViewModel,
     fasting: String = "",
     postMeal: String = ""
 ) {
     SummaryImpl(
         modifier = modifier,
         currentDate = currentDate,
+        userId = userId,
+        viewModel = viewModel,
         fasting = fasting,
         postMeal = postMeal
     )
@@ -74,6 +79,8 @@ fun Summary(
 fun SummaryImpl(
     modifier: Modifier,
     currentDate: String,
+    userId: String,
+    viewModel: HomeViewModel,
     fasting: String,
     postMeal: String
 ) {
@@ -222,6 +229,9 @@ fun SummaryImpl(
                             // allow no decimals
                             if (it.all { char -> char.isDigit() }  && it.length <= 3) {
                                 fastingText = it
+                                if (fastingText.isNotBlank()) {
+                                    viewModel.updateFastingValue(userId = userId, fasting = fastingText.toInt())
+                                }
                             }
                         }
                     )
@@ -271,6 +281,9 @@ fun SummaryImpl(
                             // allow no decimals
                             if (it.all { char -> char.isDigit() } && it.length <= 3) {
                                 postMealText = it
+                                if (postMealText.isNotBlank()) {
+                                    viewModel.updatePostMealValue(userId = userId, postMeal = postMealText.toInt())
+                                }
                             }
                         }
                     )

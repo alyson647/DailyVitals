@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.daily.vitals.design.theme.labelLargeSemiBold
 import com.daily.vitals.design.components.SleepIcon
+import com.daily.vitals.feature.home.HomeViewModel
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.did_you_sleep_well
 import dailyvitals.composeapp.generated.resources.greater_seven_hours
@@ -43,7 +44,9 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun Sleep(
-    selectedIndex: Int
+    selectedIndex: Int,
+    userId: String,
+    viewModel: HomeViewModel
 ) {
     var selectedIndex by remember { mutableIntStateOf(selectedIndex) }
     val options = listOf(
@@ -96,7 +99,10 @@ fun Sleep(
                     index = 0,
                     count = options.size
                 ),
-                onClick = { selectedIndex = 0 },
+                onClick = {
+                    selectedIndex = 0
+                    viewModel.updateSleepValue(userId = userId, sleep = selectedIndex)
+                },
                 selected = 0 == selectedIndex,
                 label = {
                     Text(
@@ -128,7 +134,10 @@ fun Sleep(
                     index = 1,
                     count = options.size
                 ),
-                onClick = { selectedIndex = 1 },
+                onClick = {
+                    selectedIndex = 1
+                    viewModel.updateSleepValue(userId = userId, sleep = selectedIndex)
+                },
                 selected = 1 == selectedIndex,
                 label = {
                     Text(
@@ -160,7 +169,10 @@ fun Sleep(
                     index = 2,
                     count = options.size
                 ),
-                onClick = { selectedIndex = 2 },
+                onClick = {
+                    selectedIndex = 2
+                    viewModel.updateSleepValue(userId = userId, sleep = selectedIndex)
+                },
                 selected = 2 == selectedIndex,
                 label = {
                     Text(
