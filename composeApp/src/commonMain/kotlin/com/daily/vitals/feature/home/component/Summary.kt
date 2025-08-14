@@ -32,11 +32,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.daily.vitals.design.theme.labelLargeSemiBold
-import com.daily.vitals.design.theme.titleLargeBold
 import com.daily.vitals.design.components.GreenCheckIcon
 import com.daily.vitals.design.components.PrimaryNumberField
 import com.daily.vitals.design.components.RedCircleIcon
 import com.daily.vitals.design.components.WarningIcon
+import com.daily.vitals.design.theme.titleMediumBold
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.borderline_fasting
 import dailyvitals.composeapp.generated.resources.borderline_post_meal
@@ -219,7 +219,7 @@ fun SummaryImpl(
                     Text(
                         text = stringResource(Res.string.mg_dl),
                         color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.titleLargeBold,
+                        style = MaterialTheme.typography.titleMediumBold,
                         textAlign = TextAlign.Center
                     )
                 }
@@ -268,7 +268,7 @@ fun SummaryImpl(
                     Text(
                         text = stringResource(Res.string.mg_dl),
                         color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.titleLargeBold,
+                        style = MaterialTheme.typography.titleMediumBold,
                         textAlign = TextAlign.Center
                     )
                 }
