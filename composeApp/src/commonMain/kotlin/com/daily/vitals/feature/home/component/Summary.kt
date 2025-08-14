@@ -57,19 +57,28 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun Summary(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    currentDate: String,
+    fasting: String = "",
+    postMeal: String = ""
 ) {
     SummaryImpl(
-        modifier = modifier
+        modifier = modifier,
+        currentDate = currentDate,
+        fasting = fasting,
+        postMeal = postMeal
     )
 }
 
 @Composable
 fun SummaryImpl(
-    modifier: Modifier
+    modifier: Modifier,
+    currentDate: String,
+    fasting: String,
+    postMeal: String
 ) {
-    var fastingText by remember { mutableStateOf("") }
-    var postMealText by remember { mutableStateOf("") }
+    var fastingText by remember { mutableStateOf(fasting) }
+    var postMealText by remember { mutableStateOf(postMeal) }
 
     Column(
         modifier = modifier

@@ -21,6 +21,9 @@ import com.daily.vitals.feature.home.component.Summary
 import org.koin.core.annotation.KoinExperimentalAPI
 import androidx.compose.runtime.*
 import com.daily.vitals.UserSessionViewModel
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(KoinExperimentalAPI::class)
@@ -33,6 +36,9 @@ internal fun Home(
     directions: (AppDirections) -> Unit = {},
 ) {
     val dataStoreUserId by userSessionViewModel.userId.collectAsState()
+
+    val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
+    val testDate = "2025-08-09"
 
     LaunchedEffect(dataStoreUserId) {
         if (dataStoreUserId.isNotBlank()) {
@@ -62,13 +68,23 @@ internal fun Home(
                 Spacer(Modifier.height(32.dp)); CircularProgressIndicator()
             }
             else -> {
+                val currentEntry = ui.entries.find { it.id == testDate } // TODO: change to current date
                 HomeHeader(
                     name = ui.user?.name ?: "",
                     profileUrl = ui.user?.profilePicture ?: ""
                 )
-                Summary(modifier = Modifier.padding(horizontal = 16.dp))
+                Summary(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    currentDate = testDate,
+                    fasting = (currentEntry?.fasting ?: "").toString(),
+                    postMeal = (currentEntry?.fasting ?: "").toString()
+                )
                 Spacer(modifier = Modifier.height(16.dp))
-                OtherHealthData()
+                OtherHealthData(
+                    entries = ui.entries,
+                    currentEntry = currentEntry,
+                    currentDate = testDate // TODO: change to current date
+                )
             }
         }
     }

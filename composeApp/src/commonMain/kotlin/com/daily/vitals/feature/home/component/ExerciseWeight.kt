@@ -50,11 +50,14 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ExerciseWeight() {
+fun ExerciseWeight(
+    exercise: Boolean,
+    weight: String
+) {
 
-    val checked = remember { mutableStateOf(true) }
+    val checked = remember { mutableStateOf(exercise) }
     val enabled = remember { mutableStateOf(true) }
-    var weightText by remember { mutableStateOf("") }
+    var weightText by remember { mutableStateOf(weight) }
 
     Row(
         modifier = Modifier

@@ -8,23 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.daily.vitals.domain.entry.model.Entry
 import com.daily.vitals.feature.home.component.HistoryEntry
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.last_five_days
 import org.jetbrains.compose.resources.stringResource
-import kotlin.random.Random
 
 @Composable
-fun History() {
-    val random = Random.Default
-    val dateLabels = listOf(
-        "July 6, 2025",
-        "July 7, 2025",
-        "July 8, 2025",
-        "July 9, 2025",
-        "July 10, 2025"
-    )
-
+fun History(
+    entries: List<Entry>
+) {
+    val filteredEntries = entries.sortedByDescending { it.id }.take(5)
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
@@ -43,11 +37,11 @@ fun History() {
             thickness = 1.dp,
             color = MaterialTheme.colorScheme.outline
         )
-
-        for (date in dateLabels) {
-            val value1 = random.nextInt(80, 201)
-            val value2 = random.nextInt(80, 201)
-            HistoryEntry(date, value1, value2)
+        filteredEntries.forEach { entry ->
+            HistoryEntry(
+                date = entry.id,
+                fasting = entry.fasting,
+                postMeal = entry.postMeal)
         }
     }
 }

@@ -42,8 +42,10 @@ import dailyvitals.composeapp.generated.resources.sound_sleep
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun Sleep() {
-    var selectedIndex by remember { mutableIntStateOf(-1) }
+fun Sleep(
+    selectedIndex: Int
+) {
+    var selectedIndex by remember { mutableIntStateOf(selectedIndex) }
     val options = listOf(
         stringResource(Res.string.less_six_hours),
         stringResource(Res.string.six_seven_hours),
