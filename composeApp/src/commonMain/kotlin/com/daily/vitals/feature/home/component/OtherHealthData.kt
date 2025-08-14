@@ -30,15 +30,12 @@ fun OtherHealthData() {
 @Composable
 private fun OtherHealthDataImpl() {
 
-    val scrollState = rememberScrollState()
-
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(30.dp))
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.secondaryContainer)
-            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-            .verticalScroll(scrollState),
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
