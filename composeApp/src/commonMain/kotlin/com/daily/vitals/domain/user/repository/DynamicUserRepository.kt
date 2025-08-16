@@ -12,16 +12,36 @@ class DynamicUserRepository(
     private val sessionProvider: UserSessionProvider
 ): UserRepository {
 
-    private suspend fun getRepository(): UserRepository {
-        return if (sessionProvider.isLocal()) localRepo else firestoreRepo
-    }
-
     override fun getUserById(id: String): Flow<User?> = flow {
-        val repository = getRepository()
-        emitAll(repository.getUserById(id))
+        if (sessionProvider.isLocal()) {
+            emitAll(localRepo.getUserById(id))
+        } else {
+            try {
+                emitAll(firestoreRepo.getUserById(id))
+            } catch (_: Exception) {
+                emitAll(localRepo.getUserById(id))
+            }
+        }
     }
 
     override suspend fun addUser(user: User) {
-        getRepository().addUser(user)
+        if (sessionProvider.isLocal()) {
+            localRepo.addUser(user)
+        } else {
+            val localSuccess = try {
+                localRepo.addUser(user)
+                true
+            } catch (_: Exception) {
+                false
+            }
+
+            if (localSuccess) {
+                try {
+                    firestoreRepo.addUser(user)
+                } catch (_: Exception) {
+                    // firebase failure is silent
+                }
+            }
+        }
     }
 }

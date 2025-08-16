@@ -12,29 +12,90 @@ class DynamicEntryRepository(
     private val sessionProvider: UserSessionProvider
 ): DailyEntryRepository {
 
-    private suspend fun getRepository(): DailyEntryRepository {
-        return if (sessionProvider.isLocal()) localRepo else firestoreRepo
-    }
-
     override fun getDailyEntriesByUser(userId: String): Flow<List<Entry>> = flow {
-        val repository = getRepository()
-        emitAll(repository.getDailyEntriesByUser(userId))
+        if (sessionProvider.isLocal()) {
+            emitAll(localRepo.getDailyEntriesByUser(userId))
+        } else {
+            try {
+                emitAll(firestoreRepo.getDailyEntriesByUser(userId))
+            } catch (_: Exception) {
+                emitAll(localRepo.getDailyEntriesByUser(userId))
+            }
+        }
     }
 
     override fun getDailyEntryById(userId: String, entryId: String): Flow<Entry?> = flow {
-        val repository = getRepository()
-        emitAll(repository.getDailyEntryById(userId = userId, entryId = entryId))
+        if (sessionProvider.isLocal()) {
+            emitAll(localRepo.getDailyEntryById(userId = userId, entryId = entryId))
+        } else {
+            try {
+                emitAll(firestoreRepo.getDailyEntryById(userId = userId, entryId = entryId))
+            } catch (_: Exception) {
+                emitAll(localRepo.getDailyEntryById(userId = userId, entryId = entryId))
+            }
+        }
     }
 
     override suspend fun addDailyEntry(userId: String, entry: Entry) {
-        getRepository().addDailyEntry(userId = userId, entry = entry)
+        if (sessionProvider.isLocal()) {
+            localRepo.addDailyEntry(userId = userId, entry = entry)
+        } else {
+            val localSuccess = try {
+                localRepo.addDailyEntry(userId = userId, entry = entry)
+                true
+            } catch (_: Exception) {
+                false
+            }
+
+            if (localSuccess) {
+                try {
+                    firestoreRepo.addDailyEntry(userId = userId, entry = entry)
+                } catch (_: Exception) {
+                    // silent failure
+                }
+            }
+        }
     }
 
     override suspend fun updateDailyEntry(userId: String, entry: Entry) {
-        getRepository().updateDailyEntry(userId = userId, entry = entry)
+        if (sessionProvider.isLocal()) {
+            localRepo.updateDailyEntry(userId = userId, entry = entry)
+        } else {
+            val localSuccess = try {
+                localRepo.updateDailyEntry(userId = userId, entry = entry)
+                true
+            } catch (_: Exception) {
+                false
+            }
+
+            if (localSuccess) {
+                try {
+                    firestoreRepo.updateDailyEntry(userId = userId, entry = entry)
+                } catch (_: Exception) {
+                    // silent failure
+                }
+            }
+        }
     }
 
     override suspend fun deleteDailyEntry(userId: String, entryId: String) {
-        getRepository().deleteDailyEntry(userId = userId, entryId = entryId)
+        if (sessionProvider.isLocal()) {
+            localRepo.deleteDailyEntry(userId = userId, entryId = entryId)
+        } else {
+           val localSuccess = try {
+               localRepo.deleteDailyEntry(userId = userId, entryId = entryId)
+               true
+           } catch (_: Exception) {
+               false
+           }
+
+            if (localSuccess) {
+                try {
+                    firestoreRepo.deleteDailyEntry(userId = userId, entryId = entryId)
+                } catch (_: Exception) {
+                    // silent failure
+                }
+            }
+        }
     }
 }
