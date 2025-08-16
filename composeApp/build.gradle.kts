@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     id("com.google.gms.google-services")
     alias(libs.plugins.serialization)
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -43,6 +44,7 @@ kotlin {
             implementation("com.google.firebase:firebase-bom:32.8.0")
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+            implementation(libs.android.driver)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -68,7 +70,11 @@ kotlin {
             implementation(libs.navigation.compose)
             api(libs.datastore.preferences)
             api(libs.datastore)
+            implementation(libs.coroutines.extensions)
 
+        }
+        iosMain.dependencies {
+            implementation(libs.native.driver)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -107,3 +113,10 @@ dependencies {
     debugImplementation(compose.uiTooling)
 }
 
+sqldelight {
+    databases {
+        create(name = "DailyVitalsDatabase") {
+            packageName.set("com.daily.vitals.composeApp.database")
+        }
+    }
+}
