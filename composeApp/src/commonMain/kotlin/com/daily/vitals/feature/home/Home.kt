@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -70,26 +72,33 @@ internal fun Home(
                 Spacer(Modifier.height(32.dp)); CircularProgressIndicator()
             }
             ui.isLoaded -> {
+                val scrollState = rememberScrollState()
                 HomeHeader(
                     name = ui.user?.name ?: "",
                     profileUrl = ui.user?.profilePicture ?: ""
                 )
-                Summary(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    currentDate = currentDate,
-                    viewModel = viewModel,
-                    userId = dataStoreUserId,
-                    fasting = (currentEntry?.fasting ?: "").toString(),
-                    postMeal = (currentEntry?.postMeal ?: "").toString()
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                OtherHealthData(
-                    entries = ui.entries,
-                    viewModel = viewModel,
-                    userId = dataStoreUserId,
-                    currentEntry = currentEntry,
-                    currentDate = currentDate
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState),
+                ) {
+                    Summary(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        currentDate = currentDate,
+                        viewModel = viewModel,
+                        userId = dataStoreUserId,
+                        fasting = (currentEntry?.fasting ?: "").toString(),
+                        postMeal = (currentEntry?.postMeal ?: "").toString()
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    OtherHealthData(
+                        entries = ui.entries,
+                        viewModel = viewModel,
+                        userId = dataStoreUserId,
+                        currentEntry = currentEntry,
+                        currentDate = currentDate
+                    )
+                }
             }
             else -> Unit
         }

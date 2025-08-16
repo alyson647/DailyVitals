@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -66,7 +65,7 @@ internal fun NavGraphBuilder.appGraph(
         ) { directions ->
             when (directions) {
                 is AppDirections.Next -> navController.navigate(Screen.SecondOnboarding.name)
-                is AppDirections.Home -> navController.navigate(Screen.Home.name)
+                is AppDirections.Home ->navController.navigate(Screen.Home.name)
                 else -> Unit
             }
         }
