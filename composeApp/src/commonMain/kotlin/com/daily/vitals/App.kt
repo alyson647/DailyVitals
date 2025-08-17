@@ -37,10 +37,10 @@ fun App() {
         val navController = rememberNavController()
 
         val userSessionViewModel = koinViewModel<UserSessionViewModel>()
-        val isLoggedIn by userSessionViewModel.isLoggedIn.collectAsState()
+        val showOnboarding by userSessionViewModel.showOnboarding.collectAsState()
 
-        isLoggedIn?.let {
-            val startDestination = if (isLoggedIn == true) Screen.Home.name else Screen.FirstOnboarding.name
+        showOnboarding?.let {
+            val startDestination = if (showOnboarding == false) Screen.Home.name else Screen.FirstOnboarding.name
 
             NavHost(
                 navController = navController,

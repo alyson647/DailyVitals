@@ -122,7 +122,7 @@ fun GoogleSignInDialog(
                         scope.launch {
                             userSessionViewModel.setUserId(userId)
                             userSessionViewModel.setIsLocal(false)
-                            userSessionViewModel.setLoggedIn()
+                            userSessionViewModel.setShowOnboardingFalse()
 
                             onboardingViewModel.addUser(
                                 user = User(

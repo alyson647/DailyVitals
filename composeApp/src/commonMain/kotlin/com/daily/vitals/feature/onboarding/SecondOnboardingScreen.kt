@@ -44,14 +44,14 @@ internal fun SecondOnboardingScreen(
             scope.launch {
                 userSessionViewModel.setUserId("1")
                 userSessionViewModel.setIsLocal(true)
-                userSessionViewModel.setLoggedIn()
+                userSessionViewModel.setShowOnboardingFalse()
 
                 onboardingViewModel.addUser(
                     user = User(
                         id = "1",
-                        email = "testemail@gmail.com",
+                        email = "",
                         profilePicture = "",
-                        name = "Test name"
+                        name = "Guest"
                     )
                 )
                 navigateTo(AppDirections.Home)

@@ -15,8 +15,8 @@ class UserSessionViewModel(
     private val prefs: DataStore<Preferences>
 ): ViewModel() {
 
-    private val _isLoggedIn = MutableStateFlow<Boolean?>(null)
-    val isLoggedIn: StateFlow<Boolean?> = _isLoggedIn
+    private val _showOnboarding = MutableStateFlow<Boolean?>(null)
+    val showOnboarding: StateFlow<Boolean?> = _showOnboarding
 
     private val _isLocal = MutableStateFlow<Boolean?>(null)
     val isLocal: StateFlow<Boolean?> = _isLocal
@@ -27,18 +27,18 @@ class UserSessionViewModel(
     init {
         viewModelScope.launch {
             prefs.data.collect { preferences ->
-                _isLoggedIn.value = preferences[LOGGED_IN_KEY] == true
+                _showOnboarding.value = preferences[SHOW_ONBOARDING_KEY] != false
                 _userId.value = preferences[USER_ID_KEY] ?: ""
                 _isLocal.value = preferences[LOCAL_KEY] == true
             }
         }
     }
 
-    suspend fun setLoggedIn() {
+    suspend fun setShowOnboardingFalse() {
         prefs.edit { preferences ->
-            preferences[LOGGED_IN_KEY] = true
+            preferences[SHOW_ONBOARDING_KEY] = false
         }
-        _isLoggedIn.value = true
+        _showOnboarding.value = false
     }
 
     suspend fun setUserId(userId: String) {
@@ -57,7 +57,7 @@ class UserSessionViewModel(
     }
 
     companion object {
-        private val LOGGED_IN_KEY = booleanPreferencesKey("logged_in")
+        private val SHOW_ONBOARDING_KEY = booleanPreferencesKey("show_onboarding")
         private val USER_ID_KEY = stringPreferencesKey("user_id")
         private val LOCAL_KEY = booleanPreferencesKey("local")
     }

@@ -44,7 +44,7 @@ internal fun FirstOnboardingScreen(
             scope.launch {
                 userSessionViewModel.setUserId("1")
                 userSessionViewModel.setIsLocal(true)
-                userSessionViewModel.setLoggedIn()
+                userSessionViewModel.setShowOnboardingFalse()
 
                 onboardingViewModel.addUser(
                     user = User(
