@@ -13,16 +13,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.daily.vitals.design.theme.DailyVitalsTheme
+import com.daily.vitals.feature.bottomBar.BottomBar
+import com.daily.vitals.feature.history.HistoryScreen
 import com.daily.vitals.feature.home.Home
+import com.daily.vitals.feature.notifications.NotificationScreen
 import com.daily.vitals.feature.onboarding.FirstOnboardingScreen
 import com.daily.vitals.feature.onboarding.component.GoogleSignInDialog
 import com.daily.vitals.feature.onboarding.SecondOnboardingScreen
@@ -35,26 +41,50 @@ import org.koin.core.annotation.KoinExperimentalAPI
 fun App() {
     DailyVitalsTheme {
         val navController = rememberNavController()
-
         val userSessionViewModel = koinViewModel<UserSessionViewModel>()
         val isLoggedIn by userSessionViewModel.isLoggedIn.collectAsState()
 
-        var currentScreen by remember { mutableStateOf<String?>(null) }
-
+        var startDestination by remember { mutableStateOf<String?>(null) }
         LaunchedEffect(isLoggedIn) {
-            if (currentScreen == null && isLoggedIn != null) {
-                currentScreen = if (isLoggedIn == true) Screen.Home.name else Screen.FirstOnboarding.name
+            if (startDestination == null && isLoggedIn != null) {
+                startDestination = if (isLoggedIn == true)
+                    Screen.Home.name
+                else
+                    Screen.FirstOnboarding.name
             }
         }
-        currentScreen?.let {
-            NavHost(
-                navController = navController,
-                startDestination = it
-            ) {
-                appGraph(
-                    modifier = Modifier.fillMaxSize(),
-                    navController = navController
+
+        startDestination?.let { start ->
+            Box(Modifier.fillMaxSize()) {
+                // Screen content
+                NavHost(
+                    navController = navController,
+                    startDestination = start,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    appGraph(modifier = Modifier.fillMaxSize(), navController = navController)
+                    composable(Screen.History.name) { HistoryScreen() }
+                    composable(Screen.Notifications.name) { NotificationScreen() }
+                }
+
+                val route = navController.currentBackStackEntryAsState()
+                    .value?.destination?.route.orEmpty()
+
+                val showBar = route in setOf(
+                    Screen.Home.name, "home/{userId}",
+                    Screen.History.name, "history/{userId}",
+                    Screen.Notifications.name, "notifications/{userId}"
                 )
+
+                if (showBar) {
+                    Box(
+                        Modifier
+                            .align(Alignment.BottomCenter)
+                            .zIndex(1f)
+                    ) {
+                        BottomBar(navController)
+                    }
+                }
             }
         }
     }
@@ -93,7 +123,7 @@ internal fun NavGraphBuilder.appGraph(
             modifier = modifier
         ) { directions ->
             when (directions) {
-                is AppDirections.Next -> showSignInDialog = true
+                is AppDirections.Next -> navController.navigate(Screen.Home.name)
                 is AppDirections.Home -> navController.navigate(Screen.Home.name)
                 is AppDirections.Back -> navController.navigate(Screen.SecondOnboarding.name)
             }

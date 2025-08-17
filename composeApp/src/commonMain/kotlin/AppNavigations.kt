@@ -2,7 +2,9 @@ internal enum class Screen {
     FirstOnboarding,
     SecondOnboarding,
     ThirdOnboarding,
-    Home
+    Home,
+    History,
+    Notifications
 }
 
 internal sealed class AppDirections {
