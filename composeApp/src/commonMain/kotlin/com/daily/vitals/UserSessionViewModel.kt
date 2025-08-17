@@ -18,9 +18,6 @@ class UserSessionViewModel(
     private val _showOnboarding = MutableStateFlow<Boolean?>(null)
     val showOnboarding: StateFlow<Boolean?> = _showOnboarding
 
-    private val _isLocal = MutableStateFlow<Boolean?>(null)
-    val isLocal: StateFlow<Boolean?> = _isLocal
-
     private val _userId = MutableStateFlow("")
     val userId: StateFlow<String> = _userId
 
@@ -29,7 +26,6 @@ class UserSessionViewModel(
             prefs.data.collect { preferences ->
                 _showOnboarding.value = preferences[SHOW_ONBOARDING_KEY] != false
                 _userId.value = preferences[USER_ID_KEY] ?: ""
-                _isLocal.value = preferences[LOCAL_KEY] == true
             }
         }
     }
@@ -53,7 +49,6 @@ class UserSessionViewModel(
         prefs.edit { preferences ->
             preferences[LOCAL_KEY] = value
         }
-        _isLocal.value = value
     }
 
     companion object {
