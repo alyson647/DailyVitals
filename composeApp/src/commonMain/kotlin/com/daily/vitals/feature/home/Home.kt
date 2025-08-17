@@ -40,7 +40,6 @@ internal fun Home(
     val dataStoreUserId by userSessionViewModel.userId.collectAsState()
 
     val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
-    val testDate = "2025-08-09"
 
     LaunchedEffect(dataStoreUserId) {
         if (dataStoreUserId.isNotBlank()) {

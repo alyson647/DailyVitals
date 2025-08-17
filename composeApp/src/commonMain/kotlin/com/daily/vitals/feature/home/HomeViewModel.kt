@@ -71,6 +71,7 @@ class HomeViewModel(
                 .collect { list ->
                     _ui.update { it.copy(entries = list, isLoading = false) }
                     val todayEntry = list.find { it.id == currentDate }
+                    // if there was no entry for today, create the entry
                     if (todayEntry == null) {
                         val newEntry = Entry(id = currentDate)
                         entryRepository.addDailyEntry(userId, newEntry)
@@ -130,14 +131,5 @@ class HomeViewModel(
                 entryRepository.updateDailyEntry(userId = userId, entry = updatedEntry)
             }
         }
-    }
-
-
-    fun addOrUpdateEntry(userId: String, entry: Entry) = viewModelScope.launch {
-        entryRepository.updateDailyEntry(userId, entry)
-    }
-
-    fun deleteEntry(userId: String, entryId: String) = viewModelScope.launch {
-        entryRepository.deleteDailyEntry(userId, entryId)
     }
 }

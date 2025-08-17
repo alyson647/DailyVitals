@@ -50,9 +50,9 @@ internal fun ThirdOnboardingScreen(
                 onboardingViewModel.addUser(
                     user = User(
                         id = "1",
-                        email = "testemail@gmail.com",
+                        email = "",
                         profilePicture = "",
-                        name = "Test name"
+                        name = "Guest"
                     )
                 )
                 navigateTo(AppDirections.Home)
