@@ -37,6 +37,7 @@ import com.daily.vitals.design.components.MuscleIcon
 import com.daily.vitals.design.components.RunIcon
 import com.daily.vitals.design.components.SecondaryNumberField
 import com.daily.vitals.design.components.WarningIcon
+import com.daily.vitals.feature.home.HomeViewModel
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.add_weight
 import dailyvitals.composeapp.generated.resources.exercise
@@ -50,11 +51,16 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ExerciseWeight() {
+fun ExerciseWeight(
+    exercise: Boolean,
+    weight: String,
+    userId: String,
+    viewModel: HomeViewModel
+) {
 
-    val checked = remember { mutableStateOf(true) }
+    val checked = remember { mutableStateOf(exercise) }
     val enabled = remember { mutableStateOf(true) }
-    var weightText by remember { mutableStateOf("") }
+    var weightText by remember { mutableStateOf(weight) }
 
     Row(
         modifier = Modifier
@@ -87,6 +93,7 @@ fun ExerciseWeight() {
                 checked = checked.value,
                 onCheckedChange = {
                     checked.value = !checked.value
+                    viewModel.updateExerciseValue(userId = userId, exercise = checked.value)
                 },
                 thumbContent = {
                     if (checked.value && enabled.value) {
@@ -158,6 +165,9 @@ fun ExerciseWeight() {
                         // allows decimals and five or less digits
                         if (it.matches(Regex("^\\d*\\.?\\d*\$")) && it.filter { c -> c.isDigit() }.length <= 5) {
                             weightText = it
+                            if (weightText.isNotBlank()) {
+                                viewModel.updateWeightValue(userId = userId, weight = weightText.toFloat())
+                            }
                         }
                     }
                 )

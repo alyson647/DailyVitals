@@ -37,6 +37,7 @@ import com.daily.vitals.design.components.PrimaryNumberField
 import com.daily.vitals.design.components.RedCircleIcon
 import com.daily.vitals.design.components.WarningIcon
 import com.daily.vitals.design.theme.titleMediumBold
+import com.daily.vitals.feature.home.HomeViewModel
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.borderline_fasting
 import dailyvitals.composeapp.generated.resources.borderline_post_meal
@@ -57,19 +58,34 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun Summary(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    currentDate: String,
+    userId: String,
+    viewModel: HomeViewModel,
+    fasting: String = "",
+    postMeal: String = ""
 ) {
     SummaryImpl(
-        modifier = modifier
+        modifier = modifier,
+        currentDate = currentDate,
+        userId = userId,
+        viewModel = viewModel,
+        fasting = fasting,
+        postMeal = postMeal
     )
 }
 
 @Composable
 fun SummaryImpl(
-    modifier: Modifier
+    modifier: Modifier,
+    currentDate: String,
+    userId: String,
+    viewModel: HomeViewModel,
+    fasting: String,
+    postMeal: String
 ) {
-    var fastingText by remember { mutableStateOf("") }
-    var postMealText by remember { mutableStateOf("") }
+    var fastingText by remember { mutableStateOf(fasting) }
+    var postMealText by remember { mutableStateOf(postMeal) }
 
     Column(
         modifier = modifier
@@ -213,6 +229,9 @@ fun SummaryImpl(
                             // allow no decimals
                             if (it.all { char -> char.isDigit() }  && it.length <= 3) {
                                 fastingText = it
+                                if (fastingText.isNotBlank()) {
+                                    viewModel.updateFastingValue(userId = userId, fasting = fastingText.toInt())
+                                }
                             }
                         }
                     )
@@ -262,6 +281,9 @@ fun SummaryImpl(
                             // allow no decimals
                             if (it.all { char -> char.isDigit() } && it.length <= 3) {
                                 postMealText = it
+                                if (postMealText.isNotBlank()) {
+                                    viewModel.updatePostMealValue(userId = userId, postMeal = postMealText.toInt())
+                                }
                             }
                         }
                     )

@@ -8,6 +8,6 @@ data class Entry(
     val exercise: Boolean = false,
     val fasting: Int = 0,
     val postMeal: Int = 0,
-    val sleep: Int = 0,
+    val sleep: Int = -1,
     val weight: Float = 0f
 )

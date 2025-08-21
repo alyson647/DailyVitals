@@ -20,10 +20,12 @@ import androidx.compose.ui.unit.dp
 import com.daily.vitals.feature.home.component.HomeHeader
 import com.daily.vitals.feature.home.component.OtherHealthData
 import com.daily.vitals.feature.home.component.Summary
-import com.daily.vitals.ui.home.HomeViewModel
 import org.koin.core.annotation.KoinExperimentalAPI
 import androidx.compose.runtime.*
 import com.daily.vitals.UserSessionViewModel
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(KoinExperimentalAPI::class)
@@ -36,6 +38,8 @@ internal fun Home(
     directions: (AppDirections) -> Unit = {},
 ) {
     val dataStoreUserId by userSessionViewModel.userId.collectAsState()
+
+    val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
 
     LaunchedEffect(dataStoreUserId) {
         if (dataStoreUserId.isNotBlank()) {
@@ -52,6 +56,8 @@ internal fun Home(
 
     val ui by viewModel.ui.collectAsState()
 
+    val currentEntry by viewModel.currentEntry.collectAsState()
+
     // TODO: use directions for history screen once history screen created
     Column(
         modifier = modifier
@@ -64,7 +70,7 @@ internal fun Home(
             ui.isLoading -> {
                 Spacer(Modifier.height(32.dp)); CircularProgressIndicator()
             }
-            else -> {
+            ui.isLoaded -> {
                 val scrollState = rememberScrollState()
                 HomeHeader(
                     name = ui.user?.name ?: "",
@@ -75,11 +81,25 @@ internal fun Home(
                         .fillMaxSize()
                         .verticalScroll(scrollState),
                 ) {
-                    Summary(modifier = Modifier.padding(horizontal = 16.dp))
+                    Summary(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        currentDate = currentDate,
+                        viewModel = viewModel,
+                        userId = dataStoreUserId,
+                        fasting = (currentEntry?.fasting ?: "").toString(),
+                        postMeal = (currentEntry?.postMeal ?: "").toString()
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
-                    OtherHealthData()
+                    OtherHealthData(
+                        entries = ui.entries,
+                        viewModel = viewModel,
+                        userId = dataStoreUserId,
+                        currentEntry = currentEntry,
+                        currentDate = currentDate
+                    )
                 }
             }
+            else -> Unit
         }
     }
 }

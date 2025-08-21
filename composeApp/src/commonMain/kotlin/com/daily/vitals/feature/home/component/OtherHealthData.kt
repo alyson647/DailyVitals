@@ -16,17 +16,37 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.daily.vitals.domain.entry.model.Entry
+import com.daily.vitals.feature.home.HomeViewModel
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.other_health_data
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun OtherHealthData() {
-    OtherHealthDataImpl()
+fun OtherHealthData(
+    entries: List<Entry>,
+    userId: String,
+    viewModel: HomeViewModel,
+    currentEntry: Entry?,
+    currentDate: String
+) {
+    OtherHealthDataImpl(
+        entries = entries,
+        userId = userId,
+        viewModel = viewModel,
+        currentEntry = currentEntry,
+        currentDate = currentDate
+    )
 }
 
 @Composable
-private fun OtherHealthDataImpl() {
+private fun OtherHealthDataImpl(
+    entries: List<Entry>,
+    userId: String,
+    viewModel: HomeViewModel,
+    currentEntry: Entry?,
+    currentDate: String
+) {
 
     Column(
         modifier = Modifier
@@ -43,11 +63,22 @@ private fun OtherHealthDataImpl() {
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Sleep()
+        Sleep(
+            selectedIndex = currentEntry?.sleep ?: -1,
+            userId = userId,
+            viewModel = viewModel
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        ExerciseWeight()
+        ExerciseWeight(
+            exercise = currentEntry?.exercise == true,
+            weight = (currentEntry?.weight ?: "").toString(),
+            userId = userId,
+            viewModel = viewModel
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        History()
+        History(
+            entries = entries
+        )
         Spacer(modifier = Modifier.height(16.dp))
     }
 }

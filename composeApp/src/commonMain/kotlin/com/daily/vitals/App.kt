@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,19 +36,14 @@ fun App() {
         val navController = rememberNavController()
 
         val userSessionViewModel = koinViewModel<UserSessionViewModel>()
-        val isLoggedIn by userSessionViewModel.isLoggedIn.collectAsState()
+        val showOnboarding by userSessionViewModel.showOnboarding.collectAsState()
 
-        var currentScreen by remember { mutableStateOf<String?>(null) }
+        showOnboarding?.let {
+            val startDestination = if (showOnboarding == false) Screen.Home.name else Screen.FirstOnboarding.name
 
-        LaunchedEffect(isLoggedIn) {
-            if (currentScreen == null && isLoggedIn != null) {
-                currentScreen = if (isLoggedIn == true) Screen.Home.name else Screen.FirstOnboarding.name
-            }
-        }
-        currentScreen?.let {
             NavHost(
                 navController = navController,
-                startDestination = it
+                startDestination = startDestination
             ) {
                 appGraph(
                     modifier = Modifier.fillMaxSize(),
