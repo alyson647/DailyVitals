@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,9 +41,9 @@ fun App() {
     DailyVitalsTheme {
         val navController = rememberNavController()
         val userSessionViewModel = koinViewModel<UserSessionViewModel>()
-        val isLoggedIn by userSessionViewModel.isLoggedIn.collectAsState()
-
-        var startDestination by remember { mutableStateOf<String?>(null) }
+        val showOnboarding by userSessionViewModel.showOnboarding.collectAsState()
+        var startDestination  = if (showOnboarding == false) Screen.Home.name else Screen.FirstOnboarding.name
+      
         LaunchedEffect(isLoggedIn) {
             if (startDestination == null && isLoggedIn != null) {
                 startDestination = if (isLoggedIn == true)

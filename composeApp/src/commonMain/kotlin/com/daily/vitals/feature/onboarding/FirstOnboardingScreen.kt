@@ -3,23 +3,34 @@ package com.daily.vitals.feature.onboarding
 import AppDirections
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import com.daily.vitals.UserSessionViewModel
+import com.daily.vitals.domain.user.model.User
 import dailyvitals.composeapp.generated.resources.Res
 import dailyvitals.composeapp.generated.resources.arrow_left
 import dailyvitals.composeapp.generated.resources.arrow_right
 import dailyvitals.composeapp.generated.resources.onboarding_description_one
 import dailyvitals.composeapp.generated.resources.onboarding_heading_one
 import dailyvitals.composeapp.generated.resources.onboarding_one
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
 private var navigateTo: (AppDirections) -> Unit = {}
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 internal fun FirstOnboardingScreen(
     modifier: Modifier = Modifier,
     directions: (AppDirections) -> Unit = {}
 ) {
     navigateTo = directions
+
+    val userSessionViewModel: UserSessionViewModel = koinViewModel()
+    val onboardingViewModel: OnboardingViewModel = koinViewModel()
+    val scope = rememberCoroutineScope()
 
     OnboardingScreen(
         modifier = modifier.statusBarsPadding(),
@@ -29,7 +40,23 @@ internal fun FirstOnboardingScreen(
         forwardButtonImage = Res.drawable.arrow_right,
         backwardButtonImage = Res.drawable.arrow_left,
         progressFraction = 1f / 3f,
-        onSkipClick = { navigateTo(AppDirections.Home) },
+        onSkipClick = {
+            scope.launch {
+                userSessionViewModel.setUserId("1")
+                userSessionViewModel.setIsLocal(true)
+                userSessionViewModel.setShowOnboardingFalse()
+
+                onboardingViewModel.addUser(
+                    user = User(
+                        id = "1",
+                        email = "",
+                        profilePicture = "",
+                        name = "Guest"
+                    )
+                )
+                navigateTo(AppDirections.Home)
+            }
+        },
         onForwardClick = { navigateTo(AppDirections.Next) },
         onBackClick = null // no back button on first screen
     )

@@ -15,8 +15,8 @@ class UserSessionViewModel(
     private val prefs: DataStore<Preferences>
 ): ViewModel() {
 
-    private val _isLoggedIn = MutableStateFlow<Boolean?>(null)
-    val isLoggedIn: StateFlow<Boolean?> = _isLoggedIn
+    private val _showOnboarding = MutableStateFlow<Boolean?>(null)
+    val showOnboarding: StateFlow<Boolean?> = _showOnboarding
 
     private val _userId = MutableStateFlow("")
     val userId: StateFlow<String> = _userId
@@ -24,33 +24,36 @@ class UserSessionViewModel(
     init {
         viewModelScope.launch {
             prefs.data.collect { preferences ->
-                _isLoggedIn.value = preferences[LOGGED_IN_KEY] == true
+                _showOnboarding.value = preferences[SHOW_ONBOARDING_KEY] != false
                 _userId.value = preferences[USER_ID_KEY] ?: ""
             }
         }
     }
 
-    fun setLoggedIn() {
-        viewModelScope.launch {
-            prefs.edit { preferences ->
-                preferences[LOGGED_IN_KEY] = true
-            }
-            _isLoggedIn.value = true
+    suspend fun setShowOnboardingFalse() {
+        prefs.edit { preferences ->
+            preferences[SHOW_ONBOARDING_KEY] = false
         }
+        _showOnboarding.value = false
     }
 
-    fun setUserId(userId: String) {
+    suspend fun setUserId(userId: String) {
         if (userId == "") return
-        viewModelScope.launch {
-            prefs.edit { preferences ->
-                preferences[USER_ID_KEY] = userId
-            }
-            _userId.value = userId
+        prefs.edit { preferences ->
+            preferences[USER_ID_KEY] = userId
+        }
+        _userId.value = userId
+    }
+
+    suspend fun setIsLocal(value: Boolean) {
+        prefs.edit { preferences ->
+            preferences[LOCAL_KEY] = value
         }
     }
 
     companion object {
-        private val LOGGED_IN_KEY = booleanPreferencesKey("logged_in")
+        private val SHOW_ONBOARDING_KEY = booleanPreferencesKey("show_onboarding")
         private val USER_ID_KEY = stringPreferencesKey("user_id")
+        private val LOCAL_KEY = booleanPreferencesKey("local")
     }
 }
