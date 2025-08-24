@@ -42,18 +42,9 @@ fun App() {
         val navController = rememberNavController()
         val userSessionViewModel = koinViewModel<UserSessionViewModel>()
         val showOnboarding by userSessionViewModel.showOnboarding.collectAsState()
-        var startDestination  = if (showOnboarding == false) Screen.Home.name else Screen.FirstOnboarding.name
-      
-        LaunchedEffect(isLoggedIn) {
-            if (startDestination == null && isLoggedIn != null) {
-                startDestination = if (isLoggedIn == true)
-                    Screen.Home.name
-                else
-                    Screen.FirstOnboarding.name
-            }
-        }
+        val startDestination  = if (showOnboarding == false) Screen.Home.name else Screen.FirstOnboarding.name
 
-        startDestination?.let { start ->
+        startDestination.let { start ->
             Box(Modifier.fillMaxSize()) {
                 // Screen content
                 NavHost(
