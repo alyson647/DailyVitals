@@ -1,14 +1,19 @@
-# 🧭 Current Demo
+# 📱 Daily Vitals – Compose Multiplatform App
 
-We’ve implemented the initial **onboarding flow**, featuring:
+**Daily Vitals** is a Compose Multiplatform mobile application built for **Android** and **iOS**, designed to help users monitor and manage their diabetes-related data on a daily basis.
 
-- Three-step onboarding screens  
-- A **Google Sign-In** dialog with Firebase integration  
-- A **Home screen** displaying health data summaries (sleep, exercise, weight)
+The app provides a simple and intuitive interface featuring an **Onboarding Flow**, a **Home Screen Dashboard**, and secure user authentication. It leverages modern technologies and architecture patterns to ensure a smooth, scalable, and maintainable development experience.
 
-https://github.com/user-attachments/assets/e81b0b9d-e623-4a3b-9e8b-24f23c928877
+## ✨ Features
 
----
+- 📲 **Cross-platform** support: Built with JetBrains **Compose Multiplatform** for Android & iOS  
+- 🔐 **Google Sign-In** via **Firebase Authentication**  
+- ☁️ **Cloud Data Storage** with **Firebase Firestore**  
+- 🗄️ **Local Persistence** using **SQLDelight**  
+- ⚙️ **Dependency Injection** with **Koin**  
+- 💾 **Jetpack DataStore** for local preference storage  
+- 🧠 **MVVM Architecture** for clean separation of concerns 
+
 
 # 🛠️ Project Structure
 
