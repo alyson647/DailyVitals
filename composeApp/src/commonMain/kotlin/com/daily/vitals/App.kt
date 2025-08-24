@@ -63,8 +63,6 @@ fun App() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     appGraph(modifier = Modifier.fillMaxSize(), navController = navController)
-                    composable(Screen.History.name) { HistoryScreen() }
-                    composable(Screen.Notifications.name) { NotificationScreen() }
                 }
 
                 val route = navController.currentBackStackEntryAsState()
@@ -105,6 +103,7 @@ internal fun NavGraphBuilder.appGraph(
             }
         }
     }
+
     composable(Screen.SecondOnboarding.name) {
         SecondOnboardingScreen(
             modifier = modifier
@@ -116,6 +115,7 @@ internal fun NavGraphBuilder.appGraph(
             }
         }
     }
+
     composable(Screen.ThirdOnboarding.name) {
         var showSignInDialog by remember { mutableStateOf(false) }
 
@@ -123,7 +123,7 @@ internal fun NavGraphBuilder.appGraph(
             modifier = modifier
         ) { directions ->
             when (directions) {
-                is AppDirections.Next -> navController.navigate(Screen.Home.name)
+                is AppDirections.Next -> showSignInDialog = true
                 is AppDirections.Home -> navController.navigate(Screen.Home.name)
                 is AppDirections.Back -> navController.navigate(Screen.SecondOnboarding.name)
             }
@@ -145,6 +145,7 @@ internal fun NavGraphBuilder.appGraph(
         }
 
     }
+
     composable(Screen.Home.name) {
         Home(
             modifier = modifier
@@ -154,6 +155,7 @@ internal fun NavGraphBuilder.appGraph(
             }
         }
     }
+
     composable(
         route = "home/{userId}",
         arguments = listOf(navArgument("userId") { type = NavType.StringType })
@@ -169,4 +171,8 @@ internal fun NavGraphBuilder.appGraph(
             }
         }
     }
+
+    composable(Screen.History.name) { HistoryScreen() }
+
+    composable(Screen.Notifications.name) { NotificationScreen() }
 }
