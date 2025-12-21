@@ -102,6 +102,7 @@ internal fun NavGraphBuilder.appGraph(
                 is AppDirections.Next -> navController.navigate(Screen.ThirdOnboarding.name)
                 is AppDirections.Home -> navController.navigate(Screen.Home.name)
                 is AppDirections.Back -> navController.navigate(Screen.FirstOnboarding.name)
+                else -> Unit
             }
         }
     }
@@ -116,6 +117,7 @@ internal fun NavGraphBuilder.appGraph(
                 is AppDirections.Next -> showSignInDialog = true
                 is AppDirections.Home -> navController.navigate(Screen.Home.name)
                 is AppDirections.Back -> navController.navigate(Screen.SecondOnboarding.name)
+                else -> Unit
             }
         }
         if (showSignInDialog) {
@@ -141,6 +143,13 @@ internal fun NavGraphBuilder.appGraph(
             modifier = modifier
         ) { directions ->
             when (directions) {
+                is AppDirections.Logout -> {
+                    navController.navigate(Screen.ThirdOnboarding.name) {
+                        // Clear navigation history on logout
+                        popUpTo(0.toString()) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
                 else -> Unit
             }
         }

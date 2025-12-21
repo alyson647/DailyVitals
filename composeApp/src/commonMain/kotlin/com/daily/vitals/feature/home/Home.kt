@@ -22,6 +22,7 @@ import com.daily.vitals.feature.home.component.OtherHealthData
 import com.daily.vitals.feature.home.component.Summary
 import org.koin.core.annotation.KoinExperimentalAPI
 import androidx.compose.runtime.*
+import kotlinx.coroutines.launch
 import com.daily.vitals.UserSessionViewModel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -72,10 +73,22 @@ internal fun Home(
             }
             ui.isLoaded -> {
                 val scrollState = rememberScrollState()
+                val scope = rememberCoroutineScope()
+
                 HomeHeader(
                     name = ui.user?.name ?: "",
-                    profileUrl = ui.user?.profilePicture ?: ""
+                    profileUrl = ui.user?.profilePicture ?: "",
+                    onSignOut = {
+                        scope.launch {
+                            // clear local session
+                            userSessionViewModel.setUserId("")
+
+                            // navigate to onboarding
+                            directions(AppDirections.Logout)
+                        }
+                    }
                 )
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
