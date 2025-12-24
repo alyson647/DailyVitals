@@ -80,8 +80,7 @@ internal fun Home(
                     profileUrl = ui.user?.profilePicture ?: "",
                     onSignOut = {
                         scope.launch {
-                            // clear local session
-                            userSessionViewModel.setUserId("")
+                            userSessionViewModel.clearSession()
 
                             // navigate to onboarding
                             directions(AppDirections.Logout)
