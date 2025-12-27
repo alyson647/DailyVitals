@@ -51,6 +51,15 @@ class UserSessionViewModel(
         }
     }
 
+    suspend fun clearSession() {
+        prefs.edit { preferences ->
+            preferences.remove(USER_ID_KEY)
+            preferences[SHOW_ONBOARDING_KEY] = true
+        }
+        _userId.value = ""
+        _showOnboarding.value = true
+    }
+
     companion object {
         private val SHOW_ONBOARDING_KEY = booleanPreferencesKey("show_onboarding")
         private val USER_ID_KEY = stringPreferencesKey("user_id")
