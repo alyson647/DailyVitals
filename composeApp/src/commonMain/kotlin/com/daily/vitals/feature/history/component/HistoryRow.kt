@@ -39,10 +39,13 @@ import dailyvitals.composeapp.generated.resources.less_six_hours
 import dailyvitals.composeapp.generated.resources.low_fasting
 import dailyvitals.composeapp.generated.resources.low_post_meal
 import dailyvitals.composeapp.generated.resources.mg_dl
+import dailyvitals.composeapp.generated.resources.no
+import dailyvitals.composeapp.generated.resources.no_data
 import dailyvitals.composeapp.generated.resources.post_meal_ok
 import dailyvitals.composeapp.generated.resources.six_seven_hours
 import dailyvitals.composeapp.generated.resources.sleep
 import dailyvitals.composeapp.generated.resources.weight
+import dailyvitals.composeapp.generated.resources.yes
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -176,7 +179,7 @@ internal fun HistoryRowImpl(
                 )
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
-                    text = if (entry.exercise) { "Yes" } else { "No" },
+                    text = if (entry.exercise) { stringResource(Res.string.yes) } else { stringResource(Res.string.no) },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodySmall,
                 )
@@ -199,7 +202,7 @@ internal fun HistoryRowImpl(
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
                     text = if (entry.weight == 0f) {
-                        "No Data"
+                        stringResource(Res.string.no_data)
                     } else {
                         entry.weight.toString() + " " +  stringResource(Res.string.kg)
                     },
@@ -228,7 +231,7 @@ internal fun HistoryRowImpl(
                         0 -> stringResource(Res.string.less_six_hours)
                         1 -> stringResource(Res.string.six_seven_hours)
                         2 -> stringResource(Res.string.greater_seven_hours)
-                        else -> "No Data"
+                        else -> stringResource(Res.string.no_data)
                     },
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.bodySmall,
@@ -247,13 +250,13 @@ fun HistoryRowPreview() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
+            Row(
                 modifier = Modifier.padding(24.dp)
             ) {
                 HistoryRow(
                     modifier = Modifier,
                     entry = Entry(
-                        id = "2018-12-12",
+                        id = "2024-12-24",
                         exercise = true,
                         fasting = 102,
                         postMeal = 90,
