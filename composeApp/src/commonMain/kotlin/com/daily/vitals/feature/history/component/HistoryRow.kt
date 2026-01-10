@@ -93,33 +93,7 @@ internal fun HistoryRowImpl(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Column {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        if (entry.fasting < 80) {
-                            WarningIcon()
-                        } else if (entry.fasting < 100) {
-                            GreenCheckIcon()
-                        } else if (entry.fasting < 125) {
-                            WarningIcon()
-                        } else {
-                            RedCircleIcon()
-                        }
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = if (entry.fasting < 80) {
-                                    stringResource(Res.string.low_fasting)
-                                } else if (entry.fasting < 100) {
-                                    stringResource(Res.string.fasting_ok)
-                                } else if (entry.fasting < 125) {
-                                    stringResource(Res.string.borderline_fasting)
-                                } else {
-                                    stringResource(Res.string.high_fasting)
-                                },
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.labelSmall,
-                        )
-                    }
+                    FastingData(fasting = entry.fasting)
                     Text(
                         text = entry.fasting.toString() + " " +  stringResource(Res.string.mg_dl),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -127,32 +101,7 @@ internal fun HistoryRowImpl(
                     )
                 }
                 Column {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        if (entry.postMeal < 90) {
-                            WarningIcon()
-                        } else if (entry.postMeal < 140) {
-                            GreenCheckIcon()
-                        } else if (entry.postMeal < 180) {
-                            WarningIcon()
-                        } else {
-                            RedCircleIcon()
-                        }
-                        Text(
-                            text = if (entry.postMeal < 90) {
-                                stringResource(Res.string.low_post_meal)
-                            } else if (entry.postMeal < 140) {
-                                stringResource(Res.string.post_meal_ok)
-                            } else if (entry.postMeal < 180) {
-                                stringResource(Res.string.borderline_post_meal)
-                            } else {
-                                stringResource(Res.string.high_post_meal)
-                            },
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.labelSmall,
-                        )
-                    }
+                    PostMealData(postMeal = entry.postMeal)
                     Text(
                         text = entry.postMeal.toString() + " " + stringResource(Res.string.mg_dl),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -238,6 +187,71 @@ internal fun HistoryRowImpl(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun FastingData(
+    fasting: Int
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (fasting < 80) {
+            WarningIcon()
+        } else if (fasting < 100) {
+            GreenCheckIcon()
+        } else if (fasting < 125) {
+            WarningIcon()
+        } else {
+            RedCircleIcon()
+        }
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = if (fasting < 80) {
+                stringResource(Res.string.low_fasting)
+            } else if (fasting < 100) {
+                stringResource(Res.string.fasting_ok)
+            } else if (fasting < 125) {
+                stringResource(Res.string.borderline_fasting)
+            } else {
+                stringResource(Res.string.high_fasting)
+            },
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelSmall,
+        )
+    }
+}
+
+@Composable
+private fun PostMealData(
+    postMeal: Int
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (postMeal < 90) {
+            WarningIcon()
+        } else if (postMeal < 140) {
+            GreenCheckIcon()
+        } else if (postMeal < 180) {
+            WarningIcon()
+        } else {
+            RedCircleIcon()
+        }
+        Text(
+            text = if (postMeal < 90) {
+                stringResource(Res.string.low_post_meal)
+            } else if (postMeal < 140) {
+                stringResource(Res.string.post_meal_ok)
+            } else if (postMeal < 180) {
+                stringResource(Res.string.borderline_post_meal)
+            } else {
+                stringResource(Res.string.high_post_meal)
+            },
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelSmall,
+        )
     }
 }
 
