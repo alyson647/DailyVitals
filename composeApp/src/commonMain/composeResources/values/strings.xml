@@ -66,5 +66,8 @@
 
     <!-- history  -->
     <string name="last_five_days">Last 5 days</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="no_data">No Data</string>
 
 </resources>

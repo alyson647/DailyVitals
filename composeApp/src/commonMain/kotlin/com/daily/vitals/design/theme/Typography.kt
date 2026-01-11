@@ -56,6 +56,12 @@ val Typography: Typography @Composable get() = Typography(
         fontSize = 14.sp,
         lineHeight = 20.sp
     ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
+        fontSize = 11.sp,
+        lineHeight = 16.sp
+    )
 )
 
 val Typography.titleMediumBold: TextStyle
